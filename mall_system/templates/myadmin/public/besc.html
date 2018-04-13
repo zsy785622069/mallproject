@@ -30,7 +30,7 @@
         <header>
             <!-- logo -->
             <div class="am-fl tpl-header-logo">
-                <a href="javascript:;"><img src="/static/myadmin/assets/img/logo.png" alt=""></a>
+                <a href="{% url 'myadminhome' %}"><img src="/static/myadmin/assets/img/logo.png" alt=""></a>
             </div>
             <!-- 右侧内容 -->
             <div class="tpl-header-fluid">
@@ -171,7 +171,8 @@
             </div>
 
         </header>
-        <!-- 风格切换 -->
+
+        <!-- 风格切换-->
         <div class="tpl-skiner">
             <div class="tpl-skiner-toggle am-icon-cog">
             </div>
@@ -185,6 +186,8 @@
                 </div>
             </div>
         </div>
+
+
         <!-- 侧边导航栏 -->
         <div class="left-sidebar">
             <!-- 用户信息 -->
@@ -205,7 +208,7 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-nav-heading">Components <span class="sidebar-nav-heading-info"> 附加组件</span></li>
                 <li class="sidebar-nav-link">
-                    <a href="index.html" class="active">
+                    <a href="{% url 'myadminhome' %}" class="active">
                         <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
                     </a>
                 </li>
@@ -238,13 +241,13 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="table-list.html">
+                            <a href="{% url 'myadmin_type_index' %}">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 分类列表
                             </a>
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="table-list-img.html">
+                            <a href="{% url 'myadmin_type_add' %}">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 分类添加
                             </a>
                         </li>
@@ -278,8 +281,8 @@
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper">
 
-            {% block 'conn' %}
             <!-- 内头部信息 -->
+            {% block 'conn' %}
             <div class="container-fluid am-cf">
                 <div class="row">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">

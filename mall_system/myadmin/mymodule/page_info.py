@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
 
+# V 1.3.
+#   1). 解决了, 当总页数 <= 每页显示页数时 , 显示页数会少一个页码的问题
+
 class  PageInfo(object):
     def __init__(self, current_page,per_page_num, all_count, base_url, get_url='' , page_range=9):
         """
@@ -32,7 +35,6 @@ class  PageInfo(object):
         elif current_page >self.all_page:
             self.current_page = self.all_page
 
-
     def start(self):
         return (self.current_page - 1) * self.per_page_num
 
@@ -60,6 +62,7 @@ class  PageInfo(object):
             start = 1
             end = self.all_page
         else:
+            # 区间用来进行p判断
             if self.current_page > int(self.page_range/2):
                 if self.current_page >= self.all_page-int(self.page_range/2):
                     # 此 if 循环 : 当前页码 >= 最大页码-标准页码/2 时触发, 不然就会出现没有数据的假页码,
@@ -71,9 +74,13 @@ class  PageInfo(object):
                     start = self.current_page - int(self.page_range/2)
                     end = self.current_page + int(self.page_range/2)+1
             else:
-                # 处理 首页的几页页
+                # 处理 首页的第几页
                 start = 1 # 说明页码的开头必须是 1
-                end = self.page_range +1 #
+                end = self.page_range + 1 #
+
+        # 当总页数 <= 每页显示页数时, 显示页数会少一个页码, 所以要加 end + 1 就会多生成一个页码
+        if  self.page_range >= self.all_page:
+            end +=1
 
         # for i in range(1, self.all_page+1):
         for i in range(start, end):
