@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from myadmin.models import Types
 from django.views import View
 
-# 1. 查看分类
+# 1. 查看分类列表
 def type_index(request):
     from my_public_package.page_info import PageInfo
     type_data_all = Types.objects.extra(select= {'has': 'concat(path,id)'}).order_by('has')
@@ -14,8 +14,13 @@ def type_index(request):
     for k,v in get_par.items():
         if k != 'p':
             args += "&%s=%s"%(k,v)
-    base_url = request.path_info
-    page_info = PageInfo(request.GET.get('p'), 10, type_data_all.count(), base_url, args)
+    if len(type_data_all) == 0:
+        type_data_all = {}
+        page_info = {}
+    else:
+        base_url = request.path_info
+        page_info = PageInfo(request.GET.get('p'), 5, type_data_all.count(), base_url, args)
+        type_data_all = type_data_all[page_info.start():page_info.end()]
     return render(request, "myadmin/types_list/index.html", {'type_data_all': type_data_all,'page_info':page_info})
 
 
@@ -67,10 +72,12 @@ class TypeUpdate(View):
 
     def post(self, request):
         try:
-            upid = request.POST.get('id')
+            upid = request.POST.get('tid')
+            print(request.POST)
             upname = request.POST.get('type_name')
             if upname == '':
                 return HttpResponse('<script>alert("修改失败, 请重新修改");location.href="/myadmin/type_index"</script>')
+            print(upid, type(upid))
             up_data = Types.objects.get(id=upid)
             up_data.name = upname
             up_data.save()

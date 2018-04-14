@@ -123,13 +123,29 @@
                     </script>
                 </div>
 
+                {#  富文本编辑器  #}
+                <link rel="stylesheet" type="text/css" href="/ueditor/UE/third-party/SyntaxHighlighter/shCoreDefault.css">
+                <script type="text/javascript" src="/ueditor/UE/third-party/SyntaxHighlighter/shCore.js"></script>
+                <script type="text/javascript" src="/ueditor/UE/ueditor.config.js"></script>
+                <script type="text/javascript" src="/ueditor/UE/ueditor.all.min.js"></script>
+                <script type="text/javascript" src="/ueditor/UE/lang/zh-cn/zh-cn.js"></script>
+
+
                 {# 商品详情 #}
                 <div class="am-form-group">
                     <label for="user-intro" class="am-u-sm-3 am-form-label">商品详情</label>
                     <div class="am-u-sm-9">
-                        <textarea class="" rows="10" name="goods_info" placeholder="请输入商品"></textarea>
+                        <script id="editor" name="goods_info" type="text/plain" style="height:500px;color: black">123</script>
                     </div>
                 </div>
+
+                <script type="text/javascript">
+                    var ue = UE.getEditor('editor');
+                    SyntaxHighlighter.all();
+                </script>
+
+
+
 
                 {# 表单提交按钮#}
                 <div class="am-form-group">

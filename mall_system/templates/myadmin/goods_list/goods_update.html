@@ -1,0 +1,165 @@
+{% extends 'myadmin/public/besc.html' %}
+
+{# 内容头部信息 #}
+{% block 'conn' %}
+<!-- 内头部信息 -->
+<div class="container-fluid am-cf">
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+            <div class="page-header-heading">
+                <span class="am-icon-home page-header-heading-icon"></span>
+                商品添加
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block 'myadmin_nei_rong' %}
+    <div class="widget am-cf">
+        <div class="widget-head am-cf">
+            <div class="widget-title am-fl">商品添加</div>
+            <div class="widget-function am-fr">
+                <a href="javascript:;" class="am-icon-cog"></a>
+            </div>
+        </div>
+        <div class="widget-body am-fr">
+            {# 提交表单 #}
+            <form action="{% url 'myadmin_goods_update' %}" method="post" enctype="multipart/form-data" class="am-form tpl-form-line-form">
+            {% csrf_token %}
+                <input type="hidden" value="{{ goods_data.id }}" name="goods_data_id">
+                {# 分类级别 #}
+                <div class="am-form-group">
+                    <label for="user-phone" class="am-u-sm-3 am-form-label">分类级别</label>
+                    <div class="am-u-sm-9">
+                        <select name="goods_type_id" data-am-selected="{searchBox: 1}" style="display: none;">
+                            {% load f_def %}
+                            {% for i in type_data %}
+                                {% if i.path|jia == 3 %}
+                                    <option {% if goods_data.typeid.id == i.id %} selected {% endif %} value="{{ i.id }}">{% kong_upper i.path i.name %}</option>
+                                {% else %}
+                                    <option disabled >{% kong_upper i.path i.name %}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                {# 商品标题 #}
+                <div class="am-form-group">
+                    <label for="user-name" class="am-u-sm-3 am-form-label">商品标题</label>
+                    <div class="am-u-sm-9">
+                        <input type="text" class="tpl-form-input" value="{{ goods_data.title }}" name="goods_name" placeholder="请输入添加的商品标题">
+                    </div>
+                </div>
+
+                {# 商品价格 #}
+                <div class="am-form-group">
+                    <label for="user-name" class="am-u-sm-3 am-form-label">商品价格</label>
+                    <div class="am-u-sm-9">
+                        <input type="text" class="tpl-form-input" value="{{ goods_data.price }}" name="goods_price" placeholder="请输入商品价格">
+                    </div>
+                </div>
+
+                {# 商品库存 #}
+                <div class="am-form-group">
+                    <label for="user-name" class="am-u-sm-3 am-form-label">商品库存</label>
+                    <div class="am-u-sm-9">
+                        <input type="number" class="tpl-form-input" value="{{ goods_data.storage }}" name="goods_storage" placeholder="请输入商品库存">
+                    </div>
+                </div>
+
+                {# 商品状态 #}
+                <div class="am-form-group">
+                    <label for="user-phone" class="am-u-sm-3 am-form-label">用户状态</label>
+                    <div class="am-u-sm-9">
+                        <select data-am-selected="{searchBox: 1}" style="display: none;" name="goods_status">
+                            <option {% if goods_data.status == 1 %} selected {% endif %} value="1"> 新品 </option>
+                            <option {% if goods_data.status == 1 %} selected {% endif %} value="2"> 热销 </option>
+                            <option {% if goods_data.status == 1 %} selected {% endif %} value="3"> 下架 </option>
+                        </select>
+                    </div>
+                </div>
+
+                {# 商品图 #}
+                <div class="am-form-group">
+                    <label for="user-weibo" class="am-u-sm-3 am-form-label">
+                        头像图
+                    </label>
+
+                    <div class="am-u-sm-9">
+                        <div class="am-form-group am-form-file">
+                            <div class="tpl-form-file-img">
+                                <img id="preview" width="200" src="{{ goods_data.pic }}" alt="默认头像">
+                            </div>
+                            <button type="button" class="am-btn am-btn-danger am-btn-sm">
+                                <i class="am-icon-cloud-upload"></i>
+                                添加封面图片
+                            </button>
+                            <input id="imgPicker" type="file" multiple="" value="{{ goods_data.pic }}" name="goods_images">
+                        </div>
+                    </div>
+
+
+
+                    {# 上传显示图片 #}
+                    <script>
+                        document.querySelector('#imgPicker')
+                        .addEventListener('change', function(){
+                            //当没选中图片时，清除预览
+                            if(this.files.length === 0){
+                                document.querySelector('#preview').src = '';
+                                return;
+                            }
+
+                            // 实例化一个FileReader
+                            var reader = new FileReader();
+
+                            reader.onload = function (e) {
+                                //当reader加载时，把图片的内容赋值给
+                                document.querySelector('#preview').src = e.target.result;
+                            };
+
+                        // 读取选中的图片，并转换成dataURL格式
+                        reader.readAsDataURL(this.files[0]);
+                        }, false);
+                    </script>
+                </div>
+
+                {#  富文本编辑器  #}
+                <link rel="stylesheet" type="text/css" href="/ueditor/UE/third-party/SyntaxHighlighter/shCoreDefault.css">
+                <script type="text/javascript" src="/ueditor/UE/third-party/SyntaxHighlighter/shCore.js"></script>
+                <script type="text/javascript" src="/ueditor/UE/ueditor.config.js"></script>
+                <script type="text/javascript" src="/ueditor/UE/ueditor.all.min.js"></script>
+                <script type="text/javascript" src="/ueditor/UE/lang/zh-cn/zh-cn.js"></script>
+
+
+                {# 商品详情 #}
+                <div class="am-form-group">
+                    <label for="user-intro" class="am-u-sm-3 am-form-label">商品详情</label>
+                    <div class="am-u-sm-9">
+                        <script id="editor" name="goods_info" type="text/plain" style="height:500px;color: black">
+                            {{ goods_data.info|safe }}
+                        </script>
+
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    var ue = UE.getEditor('editor');
+                    SyntaxHighlighter.all();
+                </script>
+
+
+
+
+                {# 表单提交按钮#}
+                <div class="am-form-group">
+                    <div class="am-u-sm-9 am-u-sm-push-3">
+                        <button class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

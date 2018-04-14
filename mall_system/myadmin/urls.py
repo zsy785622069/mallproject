@@ -1,8 +1,13 @@
 # myadmin --> urls.py
 from django.conf.urls import url
-from myadmin.views import views, types_views, goods_views
+from myadmin.views import views, types_views, goods_views, login_out
 
 urlpatterns = [
+    # 登录页
+    url(r'^login$', login_out.Login.as_view(), name='myadmin_login'),
+    url(r'^logout$', login_out.logout, name='myadmin_logout'),
+    url(r'^verifycode$', login_out.verifycode, name='myadmin_verifycode'),
+
     # 用户首页
     url(r'^$', views.home, name='myadminhome'),
 
@@ -43,5 +48,10 @@ urlpatterns = [
     url(r'^goods_add$', goods_views.GoodsAdd.as_view(), name='myadmin_goods_add'),
     #   3.2. 展示商品信息
     url(r'^goods_index$', goods_views.goods_index, name='myadmin_goods_index'),
+    #   3.3. 分类编辑
+    url(r'^goods_up_edit/(?P<up_id>[0-9]+)$', goods_views.GoodsUpdate.as_view(), name='myadmin_goods_up_edit'),
+    url(r'^goods_update$', goods_views.GoodsUpdate.as_view(), name='myadmin_goods_update'),
+    #   3.4. 删除分类
+    url(r'^goods_del/(?P<del_id>[0-9]+)$', goods_views.goods_del, name='myadmin_goods_del'),
 
 ]

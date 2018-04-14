@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # 'myadmin.apps.MyadminConfig',
     'home',
     'myadmin',
+    'ueditor',
 ]
 
 MIDDLEWARE = [

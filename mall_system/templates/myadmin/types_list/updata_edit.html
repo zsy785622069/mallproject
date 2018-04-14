@@ -30,7 +30,7 @@
 {#            {% load f_daf %}#}
             <form action="{% url 'myadmin_type_update' %}" method="post" class="am-form tpl-form-line-form">
                 {% csrf_token %}
-                <input type="hidden" nam="tid" value="{{ up.id }}">
+                <input type="hidden" name="tid" value="{{ up.id }}">
                 {# 分类级别 #}
                 <div class="am-form-group">
                     <label for="user-phone" class="am-u-sm-3 am-form-label">分类级别</label>
