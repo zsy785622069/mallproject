@@ -1,0 +1,71 @@
+{% extends 'myadmin/public/besc.html' %}
+
+{% block 'conn' %}
+    <div class="container-fluid am-cf">
+        <div class="row">
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                <div class="page-header-heading">
+                    <span class="am-icon-home page-header-heading-icon"></span>
+                    分类添加
+                </div>
+            </div>
+            <div class="am-u-lg-3 tpl-index-settings-button">
+                <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block 'myadmin_nei_rong' %}
+    <div class="widget am-cf">
+        <div class="widget-head am-cf">
+            <div class="widget-title am-fl">会员添加</div>
+            <div class="widget-function am-fr">
+                <a href="javascript:;" class="am-icon-cog"></a>
+            </div>
+        </div>
+        <div class="widget-body am-fr">
+            {# 提交表单 #}
+{#            {% load f_daf %}#}
+            <form action="{% url 'myadmin_type_update' %}" method="post" class="am-form tpl-form-line-form">
+                {% csrf_token %}
+                <input type="hidden" nam="tid" value="{{ up.id }}">
+                {# 分类级别 #}
+                <div class="am-form-group">
+                    <label for="user-phone" class="am-u-sm-3 am-form-label">分类级别</label>
+                    <div class="am-u-sm-9">
+                        <select data-am-selected="{searchBox: 1}" style="display: none;">
+                            <option disabled value="0"> 顶级分类 </option>
+                            {% load f_def %}
+                            {% for i in all_data %}
+                                <option {% if i.id == up.id  %} selected {% else %} disabled {% endif %} value="{{ i.id }}"> {% kong_upper i.path i.name %} </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+
+                {# 分类名 #}
+                <div class="am-form-group">
+                    <label for="user-name" class="am-u-sm-3 am-form-label">分类名</label>
+                    <div class="am-u-sm-9">
+                        <input type="text" class="tpl-form-input" name="type_name" value="{{ up.name }}" placeholder="请输分类名">
+                    </div>
+                </div>
+
+                {# 表单提交按钮 #}
+                <div class="am-form-group">
+                    <div class="am-u-sm-9 am-u-sm-push-3">
+                        <button class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+

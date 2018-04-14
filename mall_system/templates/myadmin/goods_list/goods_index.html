@@ -1,16 +1,14 @@
 {% extends 'myadmin/public/besc.html' %}
 
 {% block 'conn' %}
+<!-- 内头部信息 -->
     <div class="container-fluid am-cf">
         <div class="row">
             <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
                 <div class="page-header-heading">
                     <span class="am-icon-home page-header-heading-icon"></span>
-                    分类列表
+                    商品列表
                 </div>
-            </div>
-            <div class="am-u-lg-3 tpl-index-settings-button">
-                <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
             </div>
         </div>
     </div>
@@ -24,7 +22,7 @@
             <div class="widget am-cf">
                 {# 会员列表页头 #}
                 <div class="widget-head am-cf">
-                    <div class="widget-title  am-cf">会员列表</div>
+                    <div class="widget-title  am-cf">商品列表</div>
                 </div>
                 {# 会员列表页内容 #}
                 <div class="widget-body  am-fr">
@@ -33,7 +31,7 @@
                         <div class="am-form-group">
                             <div class="am-btn-toolbar">
                                 <div class="am-btn-group am-btn-group-xs">
-                                    <a class="am-btn am-btn-primary" href="{% url 'myadmin_type_add' %}">
+                                    <a class="am-btn am-btn-primary" href="{% url 'myadmin_goods_add' %}">
                                         <span class="am-icon-plus"></span>
                                         新增
                                     </a>
@@ -49,7 +47,9 @@
                             <div class="am-form-group tpl-table-list-select">
                                 {# 筛选分类 #}
                                 <select name="lookup_data" data-am-selected="{btnSize: 'sm'}" style="display: none;">
-                                    <option value="username" >查找</option>
+                                    <option value="username">用户名</option>
+                                    <option value="sex">性别</option>
+                                    <option value="status">状态</option>
                                 </select>
                             </div>
                         </div>
@@ -71,30 +71,50 @@
                         <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>分类名称</th>
-                                    <th>分类级别</th>
+                                    <th>商品图片</th> {# 商品图片 #}
+                                    <th>商品ID</th>  {# 商品ID  #}
+                                    <th>商品标题</th> {# 商品标题  #}
+                                    <th>商品价格</th> {# 商品价格  #}
+                                    <th>商品库存</th> {# 商品库存  #}
+                                    <th>商品状态</th> {# 商品状态  #}
+                                    <th>分类级别</th> {# 分类级别  #}
+                                    <th>商品添加时间</th>  {# 商品添加时间 addmin #}
                                     <th>操作</th>
+
+
                                 </tr>
                             </thead>
                             {# 列表内容 #}
                             <tbody>
-                            {% load f_def %}
-                            {% for i in type_data_all %}
+                            {% for i in goods_data %}
                                 <tr class="gradeX">
-                                    <td class="am-text-middle">{{ i.id }}</td>
-                                    <td class="am-text-middle">
-                                        {% kong_upper i.path i.name %}
+                                    <td>
+                                        <img src="{{ i.pic }}" class="tpl-table-line-img" alt="用户头像">
+                                    </td> {# 商品图片 #}
+                                    <td class="am-text-middle">{{ i.id }}</td>  {# 商品ID  #}
+                                    <td class="am-text-middle">{{ i.title }}</td>  {# 商品标题  #}
+                                    <td class="am-text-middle">{{ i.price }}</td>   {# 商品价格  #}
+                                    <td class="am-text-middle">{{ i.storage }}</td>   {# 商品库存  #}
+                                    <td class="am-text-middle">  {# 商品状态  #}
+                                        {% if i.status == 1 %}
+                                            新品
+                                        {% elif i.status == 2 %}
+                                            热销
+                                        {% else %}
+                                            下架
+                                        {% endif %}
                                     </td>
-                                    <td class="am-text-middle">{{ i.path|jia }}</td>
+                                    <td class="am-text-middle">{{ i.typeid.name }}</td> {# 分类级别  #}
+                                    <td class="am-text-middle">  {# 商品添加时间 addmin #}
+                                        {{ i.addmin }}
+                                    </td>
 
-                                    {# 编辑操作 #}
                                     <td class="am-text-middle">
                                         <div class="tpl-table-black-operation">
-                                            <a href="{% url 'myadmin_type_up_edit' i.id %}">
+                                            <a href="{% url 'myadmin_user_data_update' i.id %}">
                                                 <i class="am-icon-pencil"></i> 编辑
                                             </a>
-                                            <a href="{% url 'myadmin_type_del' i.id %}" class="tpl-table-black-operation-del">
+                                            <a href="{% url 'myadmin_user_data_delele' i.id %}" class="tpl-table-black-operation-del">
                                                 <i class="am-icon-trash"></i> 删除
                                             </a>
                                         </div>
@@ -105,12 +125,14 @@
                         </table>
                     </div>
                     <div class="am-u-lg-12 am-cf">
+
                         <div class="am-fr">
                             <ul class="am-pagination tpl-pagination">
                                 {{ page_info.page_str|safe }}
                                 <li>
                                     当前第{{ page_info.current_page }}{% if page_info.current_page == None %}0{% endif %}页|
                                     共{{ page_info.all_page }}{% if page_info.all_page == None %}0{% endif %}页
+{#                                    共{{ page_info.all_page }}页#}
                                 </li>
                             </ul>
                         </div>
@@ -121,8 +143,3 @@
     </div>
 </div>
 {% endblock %}
-
-
-
-
-

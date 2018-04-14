@@ -25,14 +25,14 @@ class Types(models.Model):
 
 # 商品信息表
 class Goods(models.Model):
-    typeid = models.ForeignKey(to=(Types), to_field='id')
-    title = models.CharField(max_length=128)
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-    storage = models.IntegerField()
-    pic = models.CharField(max_length=64)
-    info = models.TextField()
-    status = models.IntegerField()
-    addmin = models.DateTimeField(auto_now_add=True)
+    typeid = models.ForeignKey(to="Types", to_field='id')
+    title = models.CharField(max_length=128)  # 商品名, 商品标题
+    price = models.DecimalField(max_digits=8, decimal_places=2)  # 商品价格
+    storage = models.IntegerField()    # 商品库存
+    pic = models.CharField(max_length=64)  # 商品图片
+    info = models.TextField()  # 商品详情
+    status = models.IntegerField()  # 1. 新品, 2. 热销, 3. 下架
+    addmin = models.DateTimeField(auto_now_add=True)  # 添加数据的时间
 
 
 

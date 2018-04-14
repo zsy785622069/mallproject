@@ -3,10 +3,9 @@ from django.http import HttpResponse
 from myadmin.models import Types
 from django.views import View
 
-# 查看分类
+# 1. 查看分类
 def type_index(request):
-    from myadmin.mymodule.page_info import PageInfo
-    # type_data_all = Types.objects.all()
+    from my_public_package.page_info import PageInfo
     type_data_all = Types.objects.extra(select= {'has': 'concat(path,id)'}).order_by('has')
 
     # 网页分页分页
@@ -20,10 +19,9 @@ def type_index(request):
     return render(request, "myadmin/types_list/index.html", {'type_data_all': type_data_all,'page_info':page_info})
 
 
-# CBV 添加分类
+# 2. 添加分类
 class TypeAdd(View):
     def get(self,request):
-        # type_data = Types.objects.all()
         type_data = Types.objects.extra(select={'has': 'concat(path,id)'}).order_by('has')
         return render(request, "myadmin/types_list/type_add.html", {'type_data': type_data})
 
@@ -33,13 +31,11 @@ class TypeAdd(View):
             tmq_add = Types()
             tmq_add.name = request.POST.get('type_name')
             tmq_add.pid = get_pid
-            print('get_pid: ',get_pid)
             if get_pid == '0':
                 res = '%s,'%get_pid
             else:
                 tem = Types.objects.get(id=get_pid)
                 res = '%s%s,'%(tem.path,get_pid)
-                print('res: ',res)
             tmq_add.path = res
             tmq_add.save()
             # return render(request, "myadmin/types_list/index.html")
@@ -47,32 +43,41 @@ class TypeAdd(View):
         except:
             return render(request, "myadmin/types_list/index.html")
 
-# 删除分类
-def type_del(request, del_id):
-    del_data = Types.objects.get(id=del_id)
-    print(del_data)
-    return HttpResponse('<script>alert("删除成功");location.href="/myadmin/type_index"</script>')
-    # return HttpResponse('<script>alert("删除失败");location.href="/myadmin/useradd"</script>')
 
-# def type_add(request):
-#     if request.method == 'POST':
-#         get_pid = request.POST.get('pid')
-#         tmq_add = Types()
-#         tmq_add.name = request.POST.get('type_name')
-#         tmq_add.pid = get_pid
-#         print(get_pid)
-#         if get_pid == '0':
-#             res = '{},'.format(get_pid)
-#         else:
-#             tem = Types.objects.filter(id=get_pid)[0].name
-#             print('tem: ',tem)
-#             res = '{},{},'.format(tem,get_pid)
-#             print('res: ',res)
-#         tmq_add.path = res
-#         tmq_add.save()
-#         return render(request, "myadmin/types_list/index.html")
-#
-#     type_data = Types.objects.all()
-#     return render(request, "myadmin/types_list/type_add.html", {'type_data': type_data})
+# 3. 删除分类
+def type_del(request, del_id):
+    del_data = Types.objects.filter(pid=del_id) # 检测 要删除的分类下面有没有子类
+    if len(del_data) != 0:
+        return HttpResponse('<script>alert("删除失败, 您要删除分类有子类, 无法删除");location.href="/myadmin/type_index"</script>')
+
+    dd = Types.objects.filter(id=del_id)
+    if len(dd) == 0:
+        return HttpResponse('<script>alert("删除失败, 没有这个字段");location.href="/myadmin/type_index"</script>')
+    dd[0].delete()
+    return HttpResponse('<script>alert("删除成功");location.href="/myadmin/type_index"</script>')
+
+
+
+# 4. 分类修改
+class TypeUpdate(View):
+    def get(self,request,up_id):
+        all_data = Types.objects.extra(select={'has': 'concat(path,id)'}).order_by('has')
+        up = Types.objects.get(id=up_id)
+        return render(request,'myadmin/types_list/updata_edit.html', {'all_data':all_data,'up' : up })
+
+    def post(self, request):
+        try:
+            upid = request.POST.get('id')
+            upname = request.POST.get('type_name')
+            if upname == '':
+                return HttpResponse('<script>alert("修改失败, 请重新修改");location.href="/myadmin/type_index"</script>')
+            up_data = Types.objects.get(id=upid)
+            up_data.name = upname
+            up_data.save()
+            return HttpResponse('<script>alert("修改成功");location.href="/myadmin/type_index"</script>')
+        except:
+            return HttpResponse('<script>alert("修改失败, 请重新修改");location.href="/myadmin/type_index"</script>')
+
+
 
 

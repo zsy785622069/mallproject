@@ -16,6 +16,10 @@ Including another URLconf
 from django.conf.urls import url, include
 
 urlpatterns = [
+    # 1. 前台页面
     url(r'^', include('home.urls')),
+    # 2. 后台管理页面
     url(r'^myadmin/', include('myadmin.urls')),
+    #   2.2. 以防止不加 / 无法访问的问题
+    url(r'^myadmin', include('myadmin.urls')),
 ]

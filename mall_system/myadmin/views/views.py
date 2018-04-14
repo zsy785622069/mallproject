@@ -43,7 +43,7 @@ def index(request):
             k = 3
         data_list = data_list.filter(status=k)
 
-    from myadmin.mymodule.page_info import PageInfo
+    from my_public_package.page_info import PageInfo
     base_url = request.path_info
     # 1). 获取 get 提交的参数
     get_par = request.GET
