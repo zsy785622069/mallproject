@@ -125,7 +125,7 @@ def user_data_update(request,us_id):
 
 # 5. 添加爱进数据库
 def user_update_sql(request):
-    from  django.contrib.auth.hashers import make_password
+    from django.contrib.auth.hashers import make_password
     res = request.POST
     try:
         uname = res['username']
@@ -153,17 +153,16 @@ def user_update_sql(request):
 
         # user_a.status = res['status']
         if request.FILES.get('pic',None):
-            user_a.pic = filesload(request, uname)
+            fil = filesload(request, uname)
+            user_a.pic = fil
+            request.session['user_pic'] = fil
         user_a.save()
+        request.session['user_name'] = res['username']
         return HttpResponse('<script>alert("修改成功");location.href="/myadmin/user_index"</script>')
     except AttributeError as arterror:
         return HttpResponse('<script>alert("修改失败, 图片上传错误, 请重新修改");location.href="/myadmin/user_data_update/%s"</script>'%res['id'])
     except BaseException as be:
         return HttpResponse('<script>alert("修改失败, 字段指定错误请重新修改");location.href="/myadmin/user_data_update/%s"</script>'%res['id'])
-
-
-
-
 
 # 上传照片
 def filesload(request, user_uname):

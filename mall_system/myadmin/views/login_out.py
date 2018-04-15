@@ -2,22 +2,39 @@ from django.shortcuts import render, redirect,reverse
 from django.http import HttpResponse
 from django.views import View
 from my_public_package.my_models import ramdom_num
+from myadmin.models import Users
 
 class Login(View):
-    def get(self, request,):
-        return render(request, 'myadmin/login_out/login.html')
+    def get(self, request):
+        res_sess = request.session.get('login_error','')
+        request.session['login_error'] = ''
+        return render(request, 'myadmin/login_out/login.html', {'error': res_sess})
 
     def post(self, request):
-        if request.session.get('verifycode').lower() != request.POST.get('vcode').lower():
-            # return redirect(reverse('myadminindex'))
-            return redirect(reverse('myadmin_login'))
+        from django.contrib.auth.hashers import check_password
 
+        # if request.session.get('verifycode').lower() != request.POST.get('vcode').lower():
+        #     request.session['login_error'] = '验证码错误'
+        #     return redirect(reverse('myadmin_login'))
+        ob = Users.objects.filter(status=2).filter(username=request.POST.get('username'))
+        print(ob)
+        for i in ob:
+            if request.POST.get('username') == i.username and check_password(request.POST.get('password'), i.password):
+                print(request.POST.get('username') == i.username)
+                print(check_password(request.POST.get('password'), i.password))
+                request.session['Admin_login'] = True
+                request.session['user_name'] = i.username
+                request.session['user_id'] = i.id
+                request.session['user_pic'] = i.pic
+                return redirect(reverse('myadminindex'))
 
-        return redirect(reverse('myadminindex'))
+        request.session['login_error'] = '帐号或密码错误'
+        return redirect(reverse('myadmin_login'))
 
+def logout(request):
+    request.session.flush()
+    return redirect(reverse('myadmin_login'))
 
-def logout(requesst):
-    pass
 
 # 验证码
 def verifycode(request):
@@ -60,3 +77,8 @@ def verifycode(request):
     im.save(buf, 'png')
     #将内存中的图片数据返回给客户端，MIME类型为图片 png
     return HttpResponse(buf.getvalue(), 'image/png')
+
+
+
+
+
