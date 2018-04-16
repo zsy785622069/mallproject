@@ -13,9 +13,9 @@ class Login(View):
     def post(self, request):
         from django.contrib.auth.hashers import check_password
 
-        # if request.session.get('verifycode').lower() != request.POST.get('vcode').lower():
-        #     request.session['login_error'] = '验证码错误'
-        #     return redirect(reverse('myadmin_login'))
+        if request.session.get('verifycode').lower() != request.POST.get('vcode').lower():
+            request.session['login_error'] = '验证码错误'
+            return redirect(reverse('myadmin_login'))
         ob = Users.objects.filter(status=2).filter(username=request.POST.get('username'))
         print(ob)
         for i in ob:

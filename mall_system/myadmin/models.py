@@ -21,6 +21,8 @@ class Types(models.Model):
     pid = models.IntegerField()
     path = models.CharField(max_length=32)
 
+    def __str__(self):
+        return 'id: %s ,title: %s'%(self.id,self.name)
 
 
 # 商品信息表
@@ -33,6 +35,9 @@ class Goods(models.Model):
     info = models.TextField()  # 商品详情
     status = models.IntegerField()  # 1. 新品, 2. 热销, 3. 下架
     addmin = models.DateTimeField(auto_now_add=True)  # 添加数据的时间
+
+    def __str__(self):
+        return 'id: %s ,title: %s'%(self.id,self.title)
 
 
 

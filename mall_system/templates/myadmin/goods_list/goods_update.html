@@ -35,7 +35,7 @@
                         <select name="goods_type_id" data-am-selected="{searchBox: 1}" style="display: none;">
                             {% load f_def %}
                             {% for i in type_data %}
-                                {% if i.path|jia == 3 %}
+                                {% if i.path|jia == 2 %}
                                     <option {% if goods_data.typeid.id == i.id %} selected {% endif %} value="{{ i.id }}">{% kong_upper i.path i.name %}</option>
                                 {% else %}
                                     <option disabled >{% kong_upper i.path i.name %}</option>

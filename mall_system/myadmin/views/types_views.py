@@ -19,7 +19,7 @@ def type_index(request):
         page_info = {}
     else:
         base_url = request.path_info
-        page_info = PageInfo(request.GET.get('p'), 5, type_data_all.count(), base_url, args)
+        page_info = PageInfo(request.GET.get('p'), 15, type_data_all.count(), base_url, args)
         type_data_all = type_data_all[page_info.start():page_info.end()]
     return render(request, "myadmin/types_list/index.html", {'type_data_all': type_data_all,'page_info':page_info})
 
@@ -48,7 +48,6 @@ class TypeAdd(View):
         except:
             return render(request, "myadmin/types_list/index.html")
 
-
 # 3. 删除分类
 def type_del(request, del_id):
     del_data = Types.objects.filter(pid=del_id) # 检测 要删除的分类下面有没有子类
@@ -73,11 +72,11 @@ class TypeUpdate(View):
     def post(self, request):
         try:
             upid = request.POST.get('tid')
-            print(request.POST)
+            # print(request.POST)
             upname = request.POST.get('type_name')
             if upname == '':
                 return HttpResponse('<script>alert("修改失败, 请重新修改");location.href="/myadmin/type_index"</script>')
-            print(upid, type(upid))
+            # print(upid, type(upid))
             up_data = Types.objects.get(id=upid)
             up_data.name = upname
             up_data.save()

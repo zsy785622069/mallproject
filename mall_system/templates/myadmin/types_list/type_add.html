@@ -40,7 +40,11 @@
                             <option value="0"> 顶级分类 </option>
                             {% load f_def %}
                             {% for i in type_data %}
-                                <option value="{{ i.id }}"> {% kong_upper i.path i.name %} </option>
+                                {% if i.path|jia == 1 %}
+                                    <option value="{{ i.id }}"> {% kong_upper i.path i.name %} </option>
+                                {% else %}
+                                    <option disabled > {% kong_upper i.path i.name %} </option>
+                                {% endif %}
                             {% endfor %}
                         </select>
                     </div>

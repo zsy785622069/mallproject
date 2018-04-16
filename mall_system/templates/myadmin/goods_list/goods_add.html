@@ -34,7 +34,7 @@
                         <select name="goods_type_id" data-am-selected="{searchBox: 1}" style="display: none;">
                             {% load f_def %}
                             {% for i in type_data %}
-                                {% if i.path|jia == 3 %}
+                                    {% if i.path|jia == 2 %}
                                     <option value="{{ i.id }}">{% kong_upper i.path i.name %}</option>
                                 {% else %}
                                     <option disabled >{% kong_upper i.path i.name %}</option>
@@ -135,7 +135,9 @@
                 <div class="am-form-group">
                     <label for="user-intro" class="am-u-sm-3 am-form-label">商品详情</label>
                     <div class="am-u-sm-9">
-                        <script id="editor" name="goods_info" type="text/plain" style="height:500px;color: black">123</script>
+                        <script id="editor" name="goods_info" type="text/plain" style="height:500px;color: black">
+                            商品 介绍:
+                        </script>
                     </div>
                 </div>
 
