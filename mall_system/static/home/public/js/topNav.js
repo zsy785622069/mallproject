@@ -175,7 +175,6 @@ function cartAddMin(){
         $('#totalPrice').html(fsPrice+'.00');
       }
 
-      
       // 减少
       $('.mz-adder-subtract').click(function(){
            //检测操作的是哪个商品
@@ -188,6 +187,7 @@ function cartAddMin(){
            var $nSub = $(this).parents('#'+prod).find('.mz-adder-subtract');
            var $nInput = $(this).parents('#'+prod).find('.mz-adder-input');
            var n=$nInput.val();
+           if(n<=1){return}
            var num=parseInt(n)-1;
 
            
@@ -225,7 +225,9 @@ function cartAddMin(){
            var sfPrice= Number(regs.exec(fPrice));
 
            //算出新的总价格
-           var nsfPrice=spText+sfPrice;
+
+           var nsfPrice=sfPrice- spText;
+           console.log(nsfPrice)
            $('#totalPrice').html(nsfPrice+'.00');
 
       })

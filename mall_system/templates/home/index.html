@@ -119,7 +119,7 @@
                     {% for v in foo.stu %}
                         <a href="{% url 'home_list' v.id %}" class="home-category-child-item title">{{ v.name }}</a>
                             {% for i in v.stu %}
-                                <a class="home-category-child-item" href="#" target="_blank" >
+                                <a class="home-category-child-item" href="{% url 'home_detail' i.id %}" target="_blank" >
                                     <img class="home-category-child-img" src="{{ i.pic }}" height="40" width="40">
                                     <div class="home-category-child-text">{{ i.title }}</div>
                                 </a>
@@ -191,26 +191,28 @@
             <!-- 热品推荐 展示内容框 第一页 -->
             <ul class="item active clearfix home-hot-list">
                 {% for rxl1 in re_xiao_list_1 %}
-                <li class="home-product">
-                    <div class="">
-                         <img src="{{ rxl1.pic }}" class="home-product-img">
-                         <div class="caption">
-                             <h4 class="home-product-title">{{ rxl1.title }}</h4>
-                             <h6 class="home-product-subtitle red">
-                                 <span class="mb-hh-red">月销</span>
-                                 累计超18000台
-                             </h6>
-                             <p class="home-product-bottom">
-                                 <span class="home-product-price">{{ rxl1.price }}
-                                     <span class="home-product-start-tag">起</span>
-                                 </span>
-                                 <span class="home-product-price origin">999</span>
-                             </p>
+                <a href="{% url 'home_detail' rxl1.id %}">
+                    <li class="home-product">
+                        <div class="">
+                             <img src="{{ rxl1.pic }}" class="home-product-img">
+                             <div class="caption">
+                                 <h4 class="home-product-title">{{ rxl1.title }}</h4>
+                                 <h6 class="home-product-subtitle red">
+                                     <span class="mb-hh-red">月销</span>
+                                     累计超18000台
+                                 </h6>
+                                 <p class="home-product-bottom">
+                                     <span class="home-product-price">{{ rxl1.price }}
+                                         <span class="home-product-start-tag">起</span>
+                                     </span>
+                                     <span class="home-product-price origin">999</span>
+                                 </p>
 
-{#                             <div class="home-product-sign" style="background-color: #f59646;">冠军</div>#}
-                         </div>
-                   </div>
-                </li>
+    {#                             <div class="home-product-sign" style="background-color: #f59646;">冠军</div>#}
+                             </div>
+                       </div>
+                    </li>
+                </a>
                 {% endfor %}
             </ul>
             <!-- 热品推荐 展示内容框 第一页  END -->
@@ -218,24 +220,26 @@
             <div class="item clearfix">
               <ul class="item active clearfix">
                   {% for rxl2 in re_xiao_list_2 %}
-                      <li class="home-product">
-                          <div class="">
-                              <img src="{{ rxl2.pic }}" class="home-product-img">
-                              <div class="caption">
-                                  <h4 class="home-product-title">{{ rxl2.title }}</h4>
-                                  <h6 class="home-product-subtitle red">
-                                         <span class="mb-hh-red">月销</span>
-                                         累计超18000台
-                                  </h6>
-                                  <p class="home-product-bottom">
-                                      <span class="home-product-price">{{ rxl2.price }}
-                                          <span class="home-product-start-tag">起</span>
-                                      </span>
-                                      <span class="home-product-price origin">999</span>
-                                  </p>
+                      <a href="{% url 'home_detail' rxl2.id %}">
+                          <li class="home-product">
+                              <div class="">
+                                  <img src="{{ rxl2.pic }}" class="home-product-img">
+                                  <div class="caption">
+                                      <h4 class="home-product-title">{{ rxl2.title }}</h4>
+                                      <h6 class="home-product-subtitle red">
+                                             <span class="mb-hh-red">月销</span>
+                                             累计超18000台
+                                      </h6>
+                                      <p class="home-product-bottom">
+                                          <span class="home-product-price">{{ rxl2.price }}
+                                              <span class="home-product-start-tag">起</span>
+                                          </span>
+                                          <span class="home-product-price origin">999</span>
+                                      </p>
+                                  </div>
                               </div>
-                          </div>
-                      </li>
+                          </li>
+                      </a>
                   {% endfor %}
             </ul>
           </div>
@@ -291,22 +295,24 @@
 
                     <!-- 手机 热销机型 -->
                     {% for go in goods_list %}
-                    <li class="home-product ">
-                        <div class="">
-                            <img src="{{ go.pic }}" class="home-product-img">
-                            <div class="caption">
-                                <h4 class="home-product-title">{{ go.title }}</h4>
-                                <h6 class="home-product-subtitle red">
-                                       <span class="mb-hh-red">月销</span>累计超18000台
-                                </h6>
-                                <p class="home-product-bottom">
-                                    <span class="home-product-price">{{ go.price }}
-                                        <span class="home-product-start-tag">起</span>
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-                    </li>
+                        <a href="{% url 'home_detail' go.id %}">
+                            <li class="home-product ">
+                                <div class="">
+                                    <img src="{{ go.pic }}" class="home-product-img">
+                                    <div class="caption">
+                                        <h4 class="home-product-title">{{ go.title }}</h4>
+                                        <h6 class="home-product-subtitle red">
+                                               <span class="mb-hh-red">月销</span>累计超18000台
+                                        </h6>
+                                        <p class="home-product-bottom">
+                                            <span class="home-product-price">{{ go.price }}
+                                                <span class="home-product-start-tag">起</span>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        </a>
                     {% endfor %}
                     <!-- 手机 热销机型 -->
               </ul>
@@ -322,721 +328,6 @@
         <!-- 手机楼层 E-->
 
 
-        <!-- 数码配件 楼层 -->
-        <div class="home-floor-content peijian">
-            <h2 class="mbf-title">数码配件</h2>
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs mbf-nav clearfix hidden-xs hidden-sm" role="tablist-2">
-                <li role="presentation" class="active">
-                      <a href="#pejian1" aria-controls="pejian1" role="tab" data-toggle="tab">超值推荐</a>
-                </li>
-                <li role="presentation">
-                      <a href="#pejian2" aria-controls="pejian2" role="tab" data-toggle="tab">耳机/音箱 </a>
-                </li>
-                <li role="presentation">
-                      <a href="#pejian3" aria-controls="pejian3" role="tab" data-toggle="tab">智能设备 </a>
-                </li>
-                <li role="presentation">
-                      <a href="#pejian4" aria-controls="pejian4" role="tab" data-toggle="tab">键盘鼠标</a>
-                  </li>
-            </ul>
-              <a class="mbf-more" href="{% url 'home_list_all' %}" target="_blank">更多&gt;</a>
-
-              <!-- Tab panes -->
-              <div class="tab-content home-floor-product">
-                <div role="tabpanel" class="tab-pane active clearfix" id="pejian1">
-                  <ul class="item active clearfix">
-                    <li class="home-product first mmr10">
-                       <div class="">
-                           <img src="/static/home/public/img/peijian1.jpg">
-                       </div>
-                    </li>
-                    <li class="home-product">
-                      <div class="">
-                        <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                        <div class="caption">
-                          <h4 class="home-product-title">魅族 PRO 7</h4>
-                          <h6 class="home-product-subtitle red">
-                                 <span class="mb-hh-red">月销</span>
-                                     累计超18000台
-                          </h6>
-                          <p class="home-product-bottom">
-                            <span class="home-product-price">999
-                            </span>
-                            <span class="home-product-price origin">1099</span>
-                          </p>
-                       </div>
-                      </div>
-                    </li>
-                    <li class="home-product mmr10">
-                      <div class="">
-                        <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                        <div class="caption">
-                          <h4 class="home-product-title">魅族 PRO 7</h4>
-                          <h6 class="home-product-subtitle red">
-                                 <span class="mb-hh-red">月销</span>
-                                     累计超18000台
-                          </h6>
-                          <p class="home-product-bottom">
-                            <span class="home-product-price">999
-                            </span>
-                            <span class="home-product-price origin">1099</span>
-                          </p>
-                       </div>
-                      </div>
-                    </li>
-                    <li class="home-product">
-                      <div class="">
-                        <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                        <div class="caption">
-                          <h4 class="home-product-title">魅族 PRO 7</h4>
-                          <h6 class="home-product-subtitle red">
-                                 <span class="mb-hh-red">月销</span>
-                                     累计超18000台
-                          </h6>
-                          <p class="home-product-bottom">
-                            <span class="home-product-price">999
-                            </span>
-                            <span class="home-product-price origin">1099</span>
-                          </p>
-                       </div>
-                      </div>
-                    </li>
-                    <li class="home-product mmr10">
-                      <div class="">
-                        <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                        <div class="caption">
-                          <h4 class="home-product-title">魅族 PRO 7</h4>
-                          <h6 class="home-product-subtitle red">
-                                 <span class="mb-hh-red">月销</span>
-                                     累计超18000台
-                          </h6>
-                          <p class="home-product-bottom">
-                            <span class="home-product-price">999
-                            </span>
-                            <span class="home-product-price origin">1099</span>
-                          </p>
-                       </div>
-                      </div>
-                    </li>
-                    <li class="home-product">
-                      <div class="">
-                        <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                        <div class="caption">
-                          <h4 class="home-product-title">魅族 PRO 7</h4>
-                          <h6 class="home-product-subtitle red">
-                                 <span class="mb-hh-red">月销</span>
-                                     累计超18000台
-                          </h6>
-                          <p class="home-product-bottom">
-                            <span class="home-product-price">999
-                            </span>
-                            <span class="home-product-price origin">1099</span>
-                          </p>
-                       </div>
-                      </div>
-                    </li>
-                    <li class="home-product mmr10">
-                      <div class="">
-                        <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                        <div class="caption">
-                          <h4 class="home-product-title">魅族 PRO 7</h4>
-                          <h6 class="home-product-subtitle red">
-                                 <span class="mb-hh-red">月销</span>
-                                     累计超18000台
-                          </h6>
-                          <p class="home-product-bottom">
-                            <span class="home-product-price">999
-                            </span>
-                            <span class="home-product-price origin">1099</span>
-                          </p>
-                       </div>
-                      </div>
-                    </li>
-                    <li class="home-product">
-                      <div class="">
-                        <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                        <div class="caption">
-                          <h4 class="home-product-title">魅族 PRO 7</h4>
-                          <h6 class="home-product-subtitle red">
-                                 <span class="mb-hh-red">月销</span>
-                                     累计超18000台
-                          </h6>
-                          <p class="home-product-bottom">
-                            <span class="home-product-price">999
-                            </span>
-                            <span class="home-product-price origin">1099</span>
-                          </p>
-                       </div>
-                      </div>
-                    </li>
-                    <li class="home-product mmr10">
-                      <div class="">
-                        <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                        <div class="caption">
-                          <h4 class="home-product-title">魅族 PRO 7</h4>
-                          <h6 class="home-product-subtitle red">
-                                 <span class="mb-hh-red">月销</span>
-                                     累计超18000台
-                          </h6>
-                          <p class="home-product-bottom">
-                            <span class="home-product-price">999
-                            </span>
-                            <span class="home-product-price origin">1099</span>
-                          </p>
-                       </div>
-                      </div>
-                    </li>
-                    <li class="home-product">
-                      <div class="">
-                        <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                        <div class="caption">
-                          <h4 class="home-product-title">魅族 PRO 7</h4>
-                          <h6 class="home-product-subtitle red">
-                                 <span class="mb-hh-red">月销</span>
-                                     累计超18000台
-                          </h6>
-                          <p class="home-product-bottom">
-                            <span class="home-product-price">999
-                            </span>
-                            <span class="home-product-price origin">1099</span>
-                          </p>
-                       </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div role="tabpanel" class="tab-pane clearfix hidden-xs hidden-sm" id="pejian2">
-                    <ul class="item clearfix">
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                    </ul>
-                </div>
-                <div role="tabpanel" class="tab-pane clearfix hidden-xs hidden-sm" id="pejian3">
-                    <ul class="item clearfix">
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                    </ul>
-                </div>
-                <div role="tabpanel" class="tab-pane clearfix hidden-xs hidden-sm" id="pejian4">
-                    <ul class="item clearfix">
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                      <li class="home-product">
-                        <div class="">
-                          <img src="/static/home/public/img/peijian.png" class="home-product-img">
-                          <div class="caption">
-                            <h4 class="home-product-title">魅族 PRO 7</h4>
-                            <h6 class="home-product-subtitle red">
-                                   <span class="mb-hh-red">月销</span>
-                                       累计超18000台
-                            </h6>
-                            <p class="home-product-bottom">
-                              <span class="home-product-price">999
-                              </span>
-                              <span class="home-product-price origin">1099</span>
-                            </p>
-                         </div>
-                        </div>
-                      </li>
-                    </ul>
-                </div>
-              </div>
-              <div class="home-floor-ad">
-                <a href="">
-                  <img src="/static/home/public/img/ad2.jpg" alt="" class="pc-floor-ad">
-                  <img src="/static/home/public/img/app/mad3.jpg" alt="" class="app-floor-ad">
-                </a>
-              </div>
-        </div>
-        <!-- 数码配件 E-->
       </div>
     </div>
     <!-- 楼层板块 E-->
