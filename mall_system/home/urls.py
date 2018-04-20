@@ -1,7 +1,7 @@
 # home --> urls
 
 from django.conf.urls import url
-from home.views import home_views, list_views,detail_views,cart_views
+from home.views import home_views, list_views,detail_views,cart_views, login_out, users_order
 
 urlpatterns = [
     # 1. 商城首页
@@ -25,6 +25,27 @@ urlpatterns = [
     #   4.4. 删除商品
     url(r'^cart_del$', cart_views.cart_del, name='cart_del'),
 
-    # 登录, 注册,
-    url(r'^detail-(?P<goods_id>[0-9]+)$', detail_views.detail_index, name='home_detail'),
+    # 登录
+    url(r'^login/$', login_out.Login.as_view(), name='home_login'),
+    # 退出
+    url(r'^logout/$', login_out.logout, name='home_logout'),
+    # 注册
+    url(r'^register/$', login_out.Register.as_view(), name='home_register'),
+
+    # 需要登录的
+    # 提交订单
+    url(r'^orderadd/$', users_order.orderadd, name='home_orderadd'),
+
+    # 订单创建
+    url(r'^ordercreate/$', users_order.ordercreate, name='home_ordercreate'),
+
+    # 支付
+    url(r'^buy/$', users_order.buy, name='home_buy'),
+
+    # 用户订单
+    url(r'^myorder/$', users_order.myorder, name='home_myorder'),
+
+    # 用户主页
+    url(r'^users_index/$', users_order.users_index, name='home_users_index'),
+
 ]

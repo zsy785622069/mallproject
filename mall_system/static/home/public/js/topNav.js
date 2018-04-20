@@ -351,7 +351,7 @@ function nLogin(){
      $('input[name=account]').blur(function(){
           //获取用户信息进行正则获取
           var v =$(this).val();
-          var reg=/^\d{6,18}$/;
+          var reg=/^.{6,18}$/;
           //判断如果为true则通过
           if(reg.test(v)){
                 $('.cycode-box').removeClass('btn-error');
@@ -363,13 +363,13 @@ function nLogin(){
                 $('.tip-box .tip-font').html("请输入合法的手机号码")
                 nameOk=false;
           }
-          console.log(v)
+          // console.log(v)
      })
       //丧失焦点事件
      $('input[name=password]').blur(function(){
           //获取用户信息
           var v =$(this).val();
-          var reg=/^\w{6,18}$/;
+          var reg=/^.{6,18}$/;
           //判断如果为true则通过
           if(reg.test(v)){
                 $('.passwd-box').removeClass('btn-error');

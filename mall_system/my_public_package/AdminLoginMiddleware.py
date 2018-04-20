@@ -21,6 +21,12 @@ class AdminLoginMiddleware:
                 # 如果在session没有记录,则证明没有登录,跳转到登录页面
                 return HttpResponse('<script>alert("请先登录");location.href="/myadmin/login";</script>')
 
+        # 用户主页 登录
+        home_allow_login = ['/orderadd/', '/ordercreate/', '/buy/', '/myorder/', '/users_index/']
+        if request.path in home_allow_login:
+            if not request.session.get('login_status'):
+                return HttpResponse('<script>alert("请先登录");location.href="/login/";</script>')
+
         response = self.get_response(request)
         return response
 
