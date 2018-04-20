@@ -49,7 +49,7 @@
 
                     <tbody>
                         {% for v in cart.values %}
-                        <tr class="cart-product" id="pro1">
+                        <tr class="cart-product">
                             <td class="cart-col-select col-md-3 col-xs-4 col-sm-4">
                                 <div class="mz-checkbox "></div>
                                 <a href="{% url 'home_detail' v.id %}" class="cart-product-link" target="_blank">
@@ -75,7 +75,7 @@
 {#                                            <button class="mz-adder-add"></button>#}
 {#                                        </div>#}
 {#                                    </div>#}
-{#                                </div>#}
+{#                                cart-product</div>#}
                             </td>
                             {# 商品单价 #}
                             <td class="cart-col-price col-md-2 hidden-xs hidden-sm">
@@ -103,7 +103,7 @@
                             </td>
                             <td class="cart-col-ctrl col-md-1  hidden-xs hidden-sm">
                                 <div class="cart-product-remove">
-                                    <span del_id="{{ v.id }}" class="glyphicon glyphicon-remove"></span>
+                                    <span class="glyphicon glyphicon-remove"></span>
                                 </div>
                             </td>
                         </tr>
@@ -125,7 +125,7 @@
                <!-- <span class="cart-remove-selected" id="removeSelected">删除选中的商品</span> -->
                <span class="cart-footer-count">
                     共
-                    <span class="cart-footer-num" id="totalCount">0</span>
+                    <span class="cart-footer-num" id="totalCount">5</span>
                     件商品
                </span>
             </div>
@@ -134,7 +134,7 @@
                     <span class="cart-footer-text">已优惠</span>
                     <span class="cart-footer-num red" id="totalDiscount">0.00</span>
                     <span class="cart-footer-text">元， 合计(不含运费)：</span>
-                    <span class="cart-footer-total" id="totalPrice">0.00</span>
+                    <span class="cart-footer-total" id="totalPrice">0</span>
                 </span>
                 <div class="mz-btn success" id="cartSubmit">去结算</div>
             </div>
@@ -149,71 +149,38 @@
 <script type="text/javascript">
     //商品数量加减
     cartAddMin();
-    total_number(); // 计算总价
-    goods_number(); // 计算商品总数
+    //total_number();
 
-    // 用于处理 商品当前的数量
     $('.mz-adder button').click(function () {
         n = $(this).parent().find('input').val(); // 最新商品数量
         g = $(this).parent().find('input').attr('gid'); // 商品的 id
-        if(n<=0){return;};
-        $.get('{% url "cart_update" %}', {num:n,gid:g},function(data){
-            total_number(); // 计算当前的总价
-            goods_number(); // 计算商品数量
+        if(n<=0){
+            return;
+        }
+        console.log('n: ',n);
+        console.log('g: ',g);
+        $.get('{% url "cart_update" %}', {num:n,gid:g},function (data){
+            console.log('123132');
+            console.log('data: ', data);
+            //total_number();
         });
     });
-
-    // 用于处理 用户删除商品
+    /*
     $('.glyphicon-remove').click(function(){
-        n = $(this).attr('del_id');
-        console.log(n);
-        $.get('{% url "cart_del" %}', {del_id:n},function(data){
-            console.log(data);
-            total_number(); // 计算当前的总价
-            goods_number(); // 计算商品数量
-        });
-
+        $('.cart-product').find('input').each(function(i,n){console.log(n.defaultValue)});
     });
 
-    // 用户计算 商品的 总价格
     function total_number(){
         var total_num = 0;
         $('.total').each(
             function(i, n){
                 total_num += parseFloat(n.innerText)
-            });
-        $("#totalPrice").html(total_num+'.00')
-    };
-    
-    // 计算商品数量
-    function goods_number() {
-        var goods_number_total = 0;
-        $('.mz-adder input').each(function(i,n) {
-            goods_number_total +=  parseInt(n.value)
         });
-        $('#totalCount').html(goods_number_total)
-    };
+        $("#totalPrice").html(total_num+'.00')
+    };*/
 </script>
 {% endblock %}
 
-
-{#{% block 'js' %}#}
-{#<!-- 返回顶部 E-->#}
-{#<script type="text/javascript">#}
-{#    //商品数量加减#}
-{#    cartAddMin();#}
-{##}
-{#    $('.mz-adder button').click(function () {#}
-{#        n = $(this).parent().find('input').val(); // 最新商品数量#}
-{#        g = $(this).parent().find('input').attr('gid'); // 商品的 id#}
-{#        if(n<=0){#}
-{#            return;#}
-{#        }#}
-{#        $.get('{% url "cart_update" %}', {num:n,gid:g});#}
-{#    })#}
-{##}
-{#</script>#}
-{#{% endblock %}#}
 
 
 

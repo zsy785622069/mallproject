@@ -158,9 +158,9 @@ function allSelect(){
 // 数量增加减少
 function cartAddMin(){
       var pList = $('.cart-product');
-      //页面底部显示初始值
-      //初始商品总数量
-      $('#totalCount').html(pList.length); 
+      // 页面底部显示初始值
+      // 初始商品总数量
+      $('#totalCount').html(pList.length);
       var fsnC = Number( $('#totalCount').text());
 
       //初始商品总和
@@ -190,7 +190,7 @@ function cartAddMin(){
            if(n<=1){return}
            var num=parseInt(n)-1;
 
-           
+
 
            //获取当前商品的单价和小计
            var $nPrice = $(this).parents('#'+prod).find('.cart-col-price .cart-product-price');
@@ -201,10 +201,10 @@ function cartAddMin(){
            //单个商品的小计
            spText= spText - npText;
            $sumPrice.html(spText+'.00');
-            
-           
+
+
            //商品减少操作
-           if(num<=1){ 
+           if(num<=1){
               $nSub.addClass('disabled');
               $nInput.val(1);
            }else if(num>1){
@@ -227,7 +227,7 @@ function cartAddMin(){
            //算出新的总价格
 
            var nsfPrice=sfPrice- spText;
-           console.log(nsfPrice)
+          //  console.log(nsfPrice)
            $('#totalPrice').html(nsfPrice+'.00');
 
       })
@@ -253,9 +253,9 @@ function cartAddMin(){
            var spText = parseInt($sumPrice.text());
 
 
-           
+
            //商品增加操作
-           if(num>1){ 
+           if(num>1){
                 $nSub.removeClass('disabled');
                 $nInput.val(num);
 
@@ -265,8 +265,8 @@ function cartAddMin(){
                 $mText.addClass('show');
                 $mText.text("限购5件");
                 $nInput.val(num);
-           } 
-           if(num>5){ 
+           }
+           if(num>5){
                 $nAdd.addClass('disabled');
                 $mText.addClass('show');
                 $mText.text("限购5件");
@@ -293,7 +293,7 @@ function cartAddMin(){
            //算出新的总价格
            var nsfPrice=spText+sfPrice;
            $('#totalPrice').html(nsfPrice+'.00');
-           console.log(sfPrice)
+          //  console.log(sfPrice)
       })
 
       //叉号删除商品

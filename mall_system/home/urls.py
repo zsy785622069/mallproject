@@ -22,6 +22,8 @@ urlpatterns = [
     url(r'^cart_clear$', cart_views.cart_clear, name='cart_clear'),
     #   4.3. 负责修改商品数量
     url(r'^cart_update$', cart_views.cart_update, name='cart_update'),
+    #   4.4. 删除商品
+    url(r'^cart_del$', cart_views.cart_del, name='cart_del'),
 
     # 登录, 注册,
     url(r'^detail-(?P<goods_id>[0-9]+)$', detail_views.detail_index, name='home_detail'),
