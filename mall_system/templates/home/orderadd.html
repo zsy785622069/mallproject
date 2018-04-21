@@ -9,8 +9,8 @@
 {% block 'zhi_fu' %}
 <div class="navbar-left">
     <ol class="breadcrumb">
-        <li class="active">购物车</li>
-        <li>确认订单</li>
+        <li>购物车</li>
+        <li class="active">确认订单</li>
         <li>在线支付</li>
         <li>完成 </li>
     </ol>
@@ -21,26 +21,24 @@
 
 {% block 'content' %}
 <div class="mainbody cart" style="margin-top: 83px">
-    <div class="container">
+    <!-- 订单信息信息 -->
+    <div class="container" style="margin-top: 25px">
         <!-- 购物车详情头 -->
         <table class="cart-header">
+            <h2>商品订单信息</h2>
             <tbody>
                 <tr>
                     <td class="cart-col-select col-md-3 col-xs-3 col-sm-3">
-                        <div class="cart-select-all JSelectAll">
-                            <div class="mz-checkbox"></div>
-                            <span class="cart-select-title">全选</span>
-                        </div>
+                        <span class="cart-select-title">商品预览图</span>
                     </td>
                     <td class="cart-col-name col-md-2 hidden-xs hidden-sm">商品</td>
                     <td class="cart-col-price col-md-2 hidden-xs hidden-sm">单价(元)</td>
                     <td class="cart-col-number col-md-2 hidden-xs hidden-sm">数量</td>
                     <td class="cart-col-total col-md-2 hidden-xs hidden-sm">小计(元)</td>
-                    <td class="cart-col-ctrl col-md-1 hidden-xs hidden-sm">操作</td>
                 </tr>
             </tbody>
         </table>
-        <!-- 购物车详情头 E-->
+        <!-- 购物车详情头 END -->
 
         <!-- 购物清单信息列表 -->
         <div class="cart-merchant-list">
@@ -48,34 +46,19 @@
                 <table class="cart-merchant-body">
 
                     <tbody>
-                        {% for v in cart.values %}
+                        {% for v in goods_list %}
                         <tr class="cart-product" id="pro1">
+                            {# 商品图片 #}
                             <td class="cart-col-select col-md-3 col-xs-4 col-sm-4">
-                                <div class="mz-checkbox " gid="{{ v.id }}"></div>
                                 <a href="{% url 'home_detail' v.id %}" class="cart-product-link" target="_blank">
                                     <img src="{{ v.pic }}" class="cart-product-img" alt="{{ v.title }}">
                                 </a>
                             </td>
+                            {# 商品介绍 #}
                             <td class="cart-col-name col-md-2 col-xs-8 col-sm-8">
                                 <a href="{% url 'home_detail' v.id %}" class="cart-product-link" target="_blank">
                                   <p>{{ v.title }}</p>
-                                  <span class="cart-product-desc">{{ v.title }}</span>
                                 </a>
-                                <p>
-                                    <span class="cart-product-price">{{ v.price }}</span>
-                                </p>
-{#                                <div class="cart-col-number">#}
-{#                                    <div class="cart-product-number-adder">#}
-{#                                        <p class="cart-product-number-max show"></p>#}
-{#                                        <div class="mz-adder">#}
-{#                                            <button class="mz-adder-subtract disabled"></button>#}
-{#                                            <div class="mz-adder-num">#}
-{#                                                <input class="mz-adder-input" value="{{ v.num }}" type="text">#}
-{#                                            </div>#}
-{#                                            <button class="mz-adder-add"></button>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                </div>#}
                             </td>
                             {# 商品单价 #}
                             <td class="cart-col-price col-md-2 hidden-xs hidden-sm">
@@ -86,13 +69,8 @@
                             <td class="cart-col-number col-md-2 hidden-xs hidden-sm">
                                 <div class="cart-product-number-adder">
                                     <p class="cart-product-number-max show"></p>
-                                    <div class="mz-adder">
-                                        <button class="mz-adder-subtract"></button>
-                                        <div class="mz-adder-num">
-                                            <input gid="{{ v.id }}" class="mz-adder-input" value="{{ v.num }}" type="text">
-                                        </div>
-                                        <button class="mz-adder-add"></button>
-                                    </div>
+                                    <div class="mz-adder-num goods_num" style="font-size: 20px">{{ v.num }}</div>
+
                                 </div>
                             </td>
                             {% load number_com %}
@@ -100,11 +78,6 @@
                                 <span class="cart-product-price total">
                                     {{ v.price|num_com:v.num }}
                                 </span>
-                            </td>
-                            <td class="cart-col-ctrl col-md-1  hidden-xs hidden-sm">
-                                <div class="cart-product-remove">
-                                    <span del_id="{{ v.id }}" class="glyphicon glyphicon-remove"></span>
-                                </div>
                             </td>
                         </tr>
                         {% endfor %}
@@ -114,14 +87,39 @@
         </div>
         <!-- 购物清单信息列表 E-->
     </div>
+    <!-- 订单信息信息 END -->
+
+    <!-- 商品购物车清单 -->
+    <div class="container" style="margin-bottom: 20px">
+        <table class="cart-header">
+            <h2>商品订单信息</h2>
+            <tbody>
+            <tr>
+                <td style="text-align: center;font-size: 20px;">
+                    收货人:
+                    <span>xxx</span>
+                </td>
+                <td style="text-align: center;font-size: 20px;">
+                    收获地址:
+                    <span>xxx</span>
+                </td>
+                <td style="text-align: center;font-size: 20px;">
+                    手机号:
+                    <span>xxx</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- 商品购物车清单 END -->
+
+
+
     <!-- 结算详情 -->
     <div class="cart-footer" id="cartFooter">
         <div class="container">
            <div class="cart-footer-left col-md-6 col-xs-4 col-sm-4">
-               <div class="cart-select-all JSelectAll" data-mdesc="全选按钮" data-mtype="store_cart_all">
-                    <div class="mz-checkbox"></div>
-                    <span class="cart-select-title">全选</span>
-               </div>
+
                <!-- <span class="cart-remove-selected" id="removeSelected">删除选中的商品</span> -->
                <span class="cart-footer-count">
                     共
@@ -145,11 +143,9 @@
 
 
 {% block 'js' %}
+{#    goods_num#}
 <!-- 返回顶部 E-->
 <script type="text/javascript">
-    //商品数量加减
-    cartAddMin();
-    allSelect();
     total_number(); // 计算总价
     goods_number(); // 计算商品总数
 
@@ -164,18 +160,6 @@
         });
     });
 
-    // 用于处理 用户删除商品
-    $('.glyphicon-remove').click(function(){
-        n = $(this).attr('del_id');
-        {#console.log(n);#}
-        $.get('{% url "cart_del" %}', {del_id:n},function(data){
-            console.log(data);
-            total_number(); // 计算当前的总价
-            goods_number(); // 计算商品数量
-        });
-
-    });
-
     // 用户计算 商品的 总价格
     function total_number(){
         var total_num = 0;
@@ -185,7 +169,7 @@
             });
         $("#totalPrice").html(total_num+'.00')
     };
-    
+
     // 计算商品数量
     function goods_number() {
         var goods_number_total = 0;
@@ -196,65 +180,45 @@
     };
 
     // 提交用户选中的商品的id
-    function goods_list() {
-        var goods_attr = []
-        $('.cart-product .checked').each(function(i,n){
+    {#function goods_list() {#}
+    {#    var goods_attr = []#}
+    {#    $('.cart-product .checked').each(function(i,n){#}
             {# console.log($(this).attr('gid')) // this 在这里是被循环的 n , #}
             {# console.log($(n).attr('gid')) // 也可以使用 $(n) 的方式选择 每次循环的值, 效果与 $(this) 相同 #}
-            var goods_id = $(n).attr('gid');
-            if(goods_id){
-                goods_attr[goods_attr.length] = goods_id
-            }
-        });
-        if (goods_attr.length >0){
-            $.ajax({ // 触发 ajax 提交订单
-                url:'{% url 'home_orderadd' %}',
-                type:'post',
-                data:{
-                    goods_id_list: goods_attr.join(','),
-                    csrfmiddlewaretoken:'{{ csrf_token }}'
-                },
-                success:function(data){
-                    alert('订单提交成功');
-                    location.href='{% url 'home_orderadd' %}'
-                    console.log(data)
-                },
-                error:function(XMLHttpRequest, textStatus, errorThrown){
-                    alert('订单提交失败, 请重新提交');
-                    console.log(XMLHttpRequest);
-                    console.log(textStatus);
-                    console.log(errorThrown);
-                }
-            })
-        }else {
-            alert('请选择商品');
-        }
-    }
+    {#        var goods_id = $(n).attr('gid');#}
+    {#        if(goods_id){#}
+    {#            goods_attr[goods_attr.length] = goods_id#}
+    {#        }#}
+    {#    });#}
+    {#    if (goods_attr.length >0){#}
+    {#        $.ajax({ // 触发 ajax 提交订单#}
+    {#            url:'{% url 'home_orderadd' %}',#}
+    {#            type:'post',#}
+    {#            data:{#}
+    {#                goods_id_list: goods_attr.join(','),#}
+    {#                csrfmiddlewaretoken:'{{ csrf_token }}'#}
+    {#            },#}
+    {#            success:function(data){#}
+    {#                alert('订单提交成功');#}
+                    {#location.href='{% url 'home_orderadd' %}'#}
+    {#                console.log(data)#}
+    {#            },#}
+    {#            error:function(XMLHttpRequest, textStatus, errorThrown){#}
+    {#                alert('订单提交失败, 请重新提交');#}
+    {#                console.log(XMLHttpRequest);#}
+    {#                console.log(textStatus);#}
+    {#                console.log(errorThrown);#}
+    {#            }#}
+    {#        })#}
+    {#    }else {#}
+    {#        alert('请选择商品');#}
+    {#    }#}
+    {# } #}
 
-    
+
 
 </script>
 {% endblock %}
-
-
-{#{% block 'js' %}#}
-{#<!-- 返回顶部 E-->#}
-{#<script type="text/javascript">#}
-{#    //商品数量加减#}
-{#    cartAddMin();#}
-{##}
-{#    $('.mz-adder button').click(function () {#}
-{#        n = $(this).parent().find('input').val(); // 最新商品数量#}
-{#        g = $(this).parent().find('input').attr('gid'); // 商品的 id#}
-{#        if(n<=0){#}
-{#            return;#}
-{#        }#}
-{#        $.get('{% url "cart_update" %}', {num:n,gid:g});#}
-{#    })#}
-{##}
-{#</script>#}
-{#{% endblock %}#}
-
 
 
 

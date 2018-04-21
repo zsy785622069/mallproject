@@ -12,7 +12,8 @@ class Login(View):
         uname = request.POST.get('home_login_username')
         pwd = request.POST.get('home_login_password')
         try:
-            users_data = Users.objects.filter(username=uname)[0]
+            # 筛选出非禁用帐号中, 用户登录的帐号
+            users_data = Users.objects.exclude(status=0).filter(username=uname)[0]
             if users_data and check_password(pwd, users_data.password):
                 request.session['login_status'] = True
                 request.session['login_users'] = {'user_id': users_data.id, 'username': users_data.username}

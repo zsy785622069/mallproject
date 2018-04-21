@@ -32,9 +32,10 @@ urlpatterns = [
     # 注册
     url(r'^register/$', login_out.Register.as_view(), name='home_register'),
 
+
     # 需要登录的
     # 提交订单
-    url(r'^orderadd/$', users_order.orderadd, name='home_orderadd'),
+    url(r'^orderadd/$', users_order.OrederAdd.as_view(), name='home_orderadd'),
 
     # 订单创建
     url(r'^ordercreate/$', users_order.ordercreate, name='home_ordercreate'),
