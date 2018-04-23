@@ -1476,47 +1476,47 @@ model</ColNames>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="339" parent="242" name="home_order_uid_id_e44ab019">
+    <column id="339" parent="242" name="addtime">
+      <Position>10</Position>
+      <DataType>datetime(6)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="340" parent="242" name="home_order_uid_id_e44ab019">
       <ColNames>uid_id</ColNames>
     </index>
-    <key id="340" parent="242" name="PRIMARY">
+    <key id="341" parent="242" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="341" parent="242" name="home_order_uid_id_e44ab019_fk_myadmin_users_id">
+    <foreign-key id="342" parent="242" name="home_order_uid_id_e44ab019_fk_myadmin_users_id">
       <ColNames>uid_id</ColNames>
       <RefSchemaName>django_pro</RefSchemaName>
       <RefTableName>myadmin_users</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="342" parent="243" name="id">
+    <column id="343" parent="243" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="343" parent="243" name="num">
+    <column id="344" parent="243" name="num">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="344" parent="243" name="price">
-      <Position>3</Position>
-      <DataType>double|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
     <column id="345" parent="243" name="gid_id">
-      <Position>4</Position>
+      <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="346" parent="243" name="orderid_id">
-      <Position>5</Position>
+      <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>

@@ -1,0 +1,136 @@
+{% extends 'myadmin/public/besc.html' %}
+{% block 'css' %}
+    <style>
+    th,td{
+        text-align: center;
+    }
+    </style>
+{% endblock %}
+
+
+{% block 'conn' %}
+<!-- 内头部信息 -->
+    <div class="container-fluid am-cf">
+        <div class="row">
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                <div class="page-header-heading">
+                    <span class="am-icon-home page-header-heading-icon"></span>
+                    订单管理
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block 'myadmin_nei_rong' %}
+<div class="row-content am-cf">
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div class="widget am-cf">
+                {# 订单列表页头 #}
+                <div class="widget-head am-cf">
+                    <div class="widget-title  am-cf">订单列表</div>
+                </div>
+                {# 订单列表页头 END #}
+
+                {# 订单列表页内容 #}
+                <div class="widget-body  am-fr">
+                {% comment %}
+                    {#  用户搜索表单  #}
+                    <form action="{{ url }}" method="get">
+                        {# 内容头部: 分类选择框 #}
+                        <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+                            <div class="am-form-group tpl-table-list-select">
+                                {# 筛选分类 #}
+                                <select name="lookup_data" data-am-selected="{btnSize: 'sm'}" style="display: none;">
+                                    <option value="username">用户名</option>
+                                </select>
+                            </div>
+                        </div>
+                        {# 内容头部: 搜索框 #}
+                        <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                            <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+                                <input name="search_form" type="text" class="am-form-field" value="{{ request.GET.search_form }}" >
+                                <span class="am-input-group-btn">
+                                <button type="button" class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search">
+                                </button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                {% endcomment %}
+                {# --------------------------------------   #}
+                    {# 会员列表列表内容 #}
+                    <div class="am-u-sm-12">
+                        <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
+                            <thead>
+                                <tr>
+                                    <th>订单ID</th>  {# 订单ID  #}
+                                    <th>订单总价</th>  {# 订单总价  #}
+                                    <th>订单所属用户</th>  {# 订单所属用户  #}
+                                    <th>订单状态</th>  {# 订单状态 #}
+                                    <th>订单添加时间</th>  {# 订单添加时间 #}
+                                    <th>订单操作</th>
+                                </tr>
+                            </thead>
+                            {# 列表内容 #}
+                            <tbody>
+                            {% for i in order_data %}
+                                <tr class="gradeX">
+                                    <td class="am-text-middle">{{ i.id }}</td>  {# 订单ID #}
+                                    <td class="am-text-middle">{{ i.total_price }}</td>  {# 订单总价 #}
+                                    <td class="am-text-middle">{{ i.uid.username }}</td>  {# 订单所属用户 #}
+
+                                    {# 订单状态 #}
+                                    <td class="am-text-middle">
+                                        {% if i.status == 0 %}
+                                            <span>已完成</span>
+                                        {% elif i.status == 1 %}
+                                            <span>待支付</span>
+                                        {% elif i.status == 2 %}
+                                            <span>待收货</span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td class="am-text-middle">{{ i.addtime }}</td>  {# 订单添加时间 #}
+
+                                    {# 订单操作 #}
+                                    <td class="am-text-middle">
+                                        <div class="tpl-table-black-operation">
+                                            <a href="{% url 'myadmin_order_detail' i.id %}">
+                                                <i class="am-icon-pencil"></i> 订单详情
+                                            </a>
+                                            <a href="{% url 'myadmin_order_update' i.id %}">
+                                                <i class="am-icon-pencil"></i> 修改
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    {% comment %}
+                    {# 分页 #}
+                    <div class="am-u-lg-12 am-cf">
+                        <div class="am-fr">
+                            <ul class="am-pagination tpl-pagination">
+                                {{ page_info.page_str|safe }}
+                                <li>
+                                    当前第{{ page_info.current_page }}{% if page_info.current_page == None %}0{% endif %}页|
+                                    共{{ page_info.all_page }}{% if page_info.all_page == None %}0{% endif %}页
+                                    {# 共{{ page_info.all_page }}页#}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

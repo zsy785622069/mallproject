@@ -1,0 +1,117 @@
+{% extends 'myadmin/public/besc.html' %}
+{% block 'css' %}
+    <style>
+    th,td{
+        text-align: center;
+    }
+    .order_css td span{
+        font-size: 20px;
+    }
+    </style>
+{% endblock %}
+{% block 'conn' %}
+<!-- 内头部信息 -->
+    <div class="container-fluid am-cf">
+        <div class="row">
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                <div class="page-header-heading">
+                    <span class="am-icon-home page-header-heading-icon"></span>
+                    订单详情
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block 'myadmin_nei_rong' %}
+<div class="row-content am-cf">
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div class="widget am-cf">
+                {# 订单详情页头 #}
+                <div class="widget-head am-cf">
+                    <div class="widget-title  am-cf">订单信息</div>
+                </div>
+                {# 订单详情页头 END #}
+
+                <div class="widget-head am-cf">
+                    <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black order_css">
+                        <tr>
+                            <td> {# 下单时间 #}
+                                <span style="color: red;">下单时间: </span>
+                                <span>{{ order_detail.addtime }}</span>
+                            </td>
+                            <td>  {# 订单ID #}
+                                <span style="color: red;">订单ID: </span>
+                                <span>{{ order_detail.id }}</span>
+                            </td>
+                            <td>  {# 订单总价 #}
+                                <span style="color: red;">订单总价: </span>
+                                <span>{{ order_detail.total_price }}</span>
+                            </td>
+                            <td>  {# 订单数量 #}
+                                <span style="color: red;">订单数量: </span>
+                                <span>{{ order_detail.total_number }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> {# 收货人 #}
+                                <span style="color: red;">收货人: </span>
+                                <span>{{ order_detail.addname }}</span>
+                            </td>
+                            <td> {# 收货电话 #}
+                                <span style="color: red;">收货电话: </span>
+                                <span>{{ order_detail.addphone }}</span>
+                            </td>
+                            <td>  {# 收货地址 #}
+                                <span style="color: red;">收货地址: </span>
+                                <span>{{ order_detail.address }}</span>
+                            </td>
+                            <td>  {# 收货邮编 #}
+                                <span style="color: red;">收货邮编: </span>
+                                <span>{{ order_detail.addcode }}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                {# 订单详情页头 #}
+                <div class="widget-head am-cf">
+                    <div class="widget-title  am-cf">订单商品</div>
+                </div>
+                {# 订单详情页头 END #}
+                {# 会员列表页内容 #}
+                <div class="widget-body  am-fr">
+                    {# 会员列表列表内容 #}
+                    <div class="am-u-sm-12">
+                        <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
+                            <thead>
+                                <tr>
+                                    <th>商品图片</th> {# 商品图片 #}
+                                    <th>商品ID</th>  {# 商品ID  #}
+                                    <th>商品标题</th> {# 商品标题 #}
+                                    <th>商品价格</th> {# 商品价格 #}
+                                    <th>商品数量</th> {# 商品数量 #}
+                                </tr>
+                            </thead>
+                            {# 列表内容 #}
+                            <tbody>
+                            {% for i in order_detail.orderinfo_set.all %}
+                                <tr class="gradeX">
+                                    <td><img src="{{ i.gid.pic }}" class="tpl-table-line-img" alt="用户头像"></td> {# 商品图片 #}
+                                    <td class="am-text-middle">{{ i.gid.id }}</td>  {# 商品ID  #}
+                                    <td class="am-text-middle">{{ i.gid.title }}</td>  {# 商品标题  #}
+                                    <td class="am-text-middle">{{ i.gid.price }}</td>   {# 商品价格  #}
+                                    <td class="am-text-middle">{{ i.num }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

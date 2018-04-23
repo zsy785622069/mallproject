@@ -1,6 +1,6 @@
 # myadmin --> urls.py
 from django.conf.urls import url
-from myadmin.views import views, types_views, goods_views, login_out
+from myadmin.views import views, types_views, goods_views, login_out, order_admin
 
 urlpatterns = [
     # 登录页
@@ -57,6 +57,11 @@ urlpatterns = [
     # -----------------------------
     # 4. 订单管理
     #   4.1. 订单展示
-    
+    url(r'^order_index/$', order_admin.order_index, name='myadmin_order_index'),
+    #   4.2. 订单详情:
+    url(r'^order_detail/(?P<detail_id>[0-9]+)$', order_admin.order_detail, name='myadmin_order_detail'),
+    #   4.3. 订单修改
+    url(r'^order_update/(?P<update_id>[0-9]+)$', order_admin.OrderUpdate.as_view(), name='myadmin_order_update'),
+    url(r'^order_edite/$', order_admin.OrderUpdate.as_view(), name='myadmin_order_edite'),
 
 ]

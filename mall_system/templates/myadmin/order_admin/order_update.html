@@ -1,0 +1,96 @@
+{% extends 'myadmin/public/besc.html' %}
+{% block 'css' %}
+    <style>
+    th,td{
+        text-align: center;
+    }
+    .order_css td span{
+        font-size: 20px;
+    }
+    </style>
+{% endblock %}
+{% block 'conn' %}
+<!-- 内头部信息 -->
+    <div class="container-fluid am-cf">
+        <div class="row">
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                <div class="page-header-heading">
+                    <span class="am-icon-home page-header-heading-icon"></span>
+                    订单详情
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block 'myadmin_nei_rong' %}
+<div class="row-content am-cf">
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div class="widget am-cf">
+
+
+
+            <form class="am-form tpl-form-line-form" method="post" action="{% url 'myadmin_order_edite' %}">
+                {% csrf_token %}
+                <input type="hidden" name="order_id" value="{{ order_up.id }}">
+                {# 订单邮编 addcode #}
+                <div class="am-form-group">
+                    <label for="user-name" class="am-u-sm-3 am-form-label">订单邮编</label>
+                    <div class="am-u-sm-9">
+                        <input name="addcode" value="{{ order_up.addcode }}" class="tpl-form-input" id="user-name" placeholder="订单邮编" type="text">
+                    </div>
+                </div>
+
+                {# 订单用户名 addname  #}
+                <div class="am-form-group">
+                    <label for="user-email" class="am-u-sm-3 am-form-label">订单名</label>
+                    <div class="am-u-sm-9">
+                        <input name="addname" value="{{ order_up.addname }}" class="tpl-form-input" placeholder="订单用户名" type="text">
+                    </div>
+                </div>
+
+                {# 订单手机号 #}
+                <div class="am-form-group">
+                    <label for="user-email" class="am-u-sm-3 am-form-label">订单手机号</label>
+                    <div class="am-u-sm-9">
+                        <input name="addphone" value="{{ order_up.addphone }}" class="tpl-form-input" placeholder="订单手机号"  type="text">
+                    </div>
+                </div>
+
+                {# 订单地址 #}
+                <div class="am-form-group">
+                    <label for="user-email" class="am-u-sm-3 am-form-label">订单地址</label>
+                    <div class="am-u-sm-9">
+                        <input name="address" value="{{ order_up.address }}" class="tpl-form-input" placeholder="订单地址" type="text">
+                    </div>
+                </div>
+
+                {# 订单状态 #}
+                <div class="am-form-group">
+                    <label for="user-phone" class="am-u-sm-3 am-form-label">
+                        作者
+                    </label>
+                    <div class="am-u-sm-9">
+                        <select name="status" data-am-selected="{searchBox: 1}" style="display: none;">
+                            <option value="0" {% if order_up.status == 0 %}selected{% endif %} >已完成</option>
+                            <option value="1" {% if order_up.status == 1 %}selected{% endif %} >待付款</option>
+                            <option value="2" {% if order_up.status == 2 %}selected{% endif %} >待收货</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <div class="am-u-sm-9 am-u-sm-push-3">
+                        <button class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                    </div>
+                </div>
+            </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
