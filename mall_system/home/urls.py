@@ -1,15 +1,15 @@
 # home --> urls
 
 from django.conf.urls import url
-from home.views import home_views, list_views,detail_views,cart_views, login_out, users_order
+from home.views import home_views, list_views,detail_views,cart_views, login_out, users_order,user_homepage
 
 urlpatterns = [
     # 1. 商城首页
     url(r'^$', home_views.index, name='home_index'),
-    url(r'^index.html$', home_views.index, name='home_index'),
+    url(r'^index.html$', home_views.index, name='home_index_html'),
     # 2. 列表页
     url(r'^list$', list_views.list_index_all, name='home_list_all'),
-    url(r'^list.html$', list_views.list_index_all),
+    url(r'^list.html$', list_views.list_index_all, name='home_list_index'),
     url(r'^list(?P<type_id>[0-9]+)$', list_views.list_index, name='home_list'),
     # 3. 详情页 detail
     url(r'^detail-(?P<goods_id>[0-9]+)$', detail_views.detail_index, name='home_detail'),
@@ -32,8 +32,7 @@ urlpatterns = [
     # 注册
     url(r'^register/$', login_out.Register.as_view(), name='home_register'),
 
-
-    # 需要登录的
+    # 需要登录的 -------------------------
     # 提交订单
     url(r'^orderadd/$', users_order.OrederAdd.as_view(), name='home_orderadd'),
 
@@ -41,12 +40,18 @@ urlpatterns = [
     url(r'^ordercreate/$', users_order.ordercreate, name='home_ordercreate'),
 
     # 支付
-    url(r'^buy/$', users_order.buy, name='home_buy'),
+    url(r'^buy/(?P<oid>[0-9]+)$', users_order.buy, name='home_buy'),
+
+    # 支付成功
+    url(r'^pay/(?P<oid>[0-9]+)$', users_order.pay, name='home_pay'),
 
     # 用户订单
     url(r'^myorder/$', users_order.myorder, name='home_myorder'),
 
     # 用户主页
-    url(r'^users_index/$', users_order.users_index, name='home_users_index'),
+    url(r'^user_homepage/$', user_homepage.user_homepage, name='home_users_index'),
+
+    # 更改用户信息
+    url(r'^update_user_info/$', user_homepage.UpdateUserInfo.as_view(), name='update_user_info'),
 
 ]

@@ -38,7 +38,7 @@
 {#                        <select data-am-selected="{searchBox: 1}" style="display: none;" name="status">#}
                         <select name="pid" data-am-selected="{searchBox: 1}" style="display: none;">
                             <option value="0"> 顶级分类 </option>
-                            {% load number_com %}
+                            {% load f_def %}
                             {% for i in type_data %}
                                 {% if i.path|jia == 1 %}
                                     <option value="{{ i.id }}"> {% kong_upper i.path i.name %} </option>

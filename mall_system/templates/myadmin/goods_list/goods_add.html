@@ -32,7 +32,7 @@
                     <label for="user-phone" class="am-u-sm-3 am-form-label">分类级别</label>
                     <div class="am-u-sm-9">
                         <select name="goods_type_id" data-am-selected="{searchBox: 1}" style="display: none;">
-                            {% load number_com %}
+                            {% load f_def %}
                             {% for i in type_data %}
                                     {% if i.path|jia == 2 %}
                                     <option value="{{ i.id }}">{% kong_upper i.path i.name %}</option>

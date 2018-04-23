@@ -1,0 +1,103 @@
+{% extends 'home/public/base.html' %}
+
+{% block 'css' %}
+	<link rel="stylesheet" type="text/css" href="/static/home/public/css/member.css">
+	<link rel="stylesheet" type="text/css" href="/static/home/public/css/member-app.css">
+{% endblock %}
+
+{% block 'content' %}
+    <!-- 主内容区域 -->
+    <div class="mainbody order">
+		<div class="container">
+			<!-- 面包屑导航 -->
+            <div class="crumbs col-xs-12 col-sm-12">
+                <ol class="breadcrumb">
+                    <li class="hidden-xs hidden-sm"><a href="{% url 'home_index' %}">首页</a></li>
+                    <li class="hidden-xs hidden-sm"><a href="{% url 'home_list_index' %}">我的商城</a></li>
+                    <li class="active">我的订单</li>
+                </ol>
+            </div>
+            <!-- 面包屑导航 E-->
+
+			<div class="main clearfix">
+                <!-- 左侧导航 -->
+                <div class="left-nav f-fl col-md-4 hidden-xs hidden-sm">
+                    <div class="nav-main">
+                        {# 订单中心 #}
+                        <a href="javascript:;" class="type-title">
+                            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                            订单中心
+                        </a>
+                        <a href="{% url 'home_myorder' %}" class="ml active" >我的订单</a>
+
+                        {# 个人中心 #}
+                        <a href="javascript:;" class="type-title">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            个人中心
+                        </a>
+                        <a href="{% url 'home_users_index' %}" class="ml " >个人主页</a>
+                    </div>
+                </div>
+                <!-- 左侧导航 END -->
+
+				<!-- 右侧内容展示 -->
+				<div class="right-content f-fr col-xs-12 col-sm-12">
+					<div class="index-main">
+                        {# 个人信息 #}
+						<div class="top clearfix">
+							<div class="information clearfix f-fl col-xs-12 col-sm-12">
+								<div class="pic f-fl">
+								  <img src="{{ user_data.pic }}" alt="">
+								</div>
+								<div class="name f-fl">
+									<span>{{ user_data.username }}</span>
+									<span>欢迎您回来！</span>
+								</div>
+								<div class="info f-fl">
+									<ul>
+										<li>绑定手机号：<span>{{ user_data.phone }}</span></li>
+										<li class="emailText">绑定邮箱：<span>{{ user_data.email }}</span></li>
+									</ul>
+									<a class="edit" href="{% url 'update_user_info' %}" target="_blank">修改个人信息 &gt;</a>
+								</div>
+							</div>
+						</div>
+
+                        {# 订单信息 #}
+						<div class="bottom clearfix">
+							<div class="orderState f-fl col-xs-12 col-sm-12">
+								<div class="title clearfix">
+									<span class="f-fl">订单状态</span>
+									<a class="detail f-fr" href="{%  url 'home_myorder' %}">查看全部订单 &gt;</a>
+								</div>
+								<div class="content">
+									<div class="waitPay clearfix">
+										<span class="f-fl cercl">
+											<span class="glyphicon glyphicon-folder-open iconfont" aria-hidden="true"></span>
+										</span>
+										<div class="text f-fl">
+											<p>待付款订单：<span class="num">{{ user_order_1 }}</span></p>
+										</div>
+									</div>
+									<div class="waitDeliver clearfix">
+										<span class="f-fl cercl">
+											<span class="glyphicon glyphicon-folder-close iconfont" aria-hidden="true"></span>
+										</span>
+										<div class="text f-fl">
+											<p>已发货订单：<span class="num">{{ user_order_2 }}</span></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+    <!-- 主内容区域 E-->
+{% endblock %}
+
+{% block 'js' %}
+{% endblock %}

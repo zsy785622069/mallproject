@@ -1,0 +1,58 @@
+{% extends 'home/public/base.html' %}
+
+{% block 'css' %}
+	<link rel="stylesheet" type="text/css" href="/static/home/public/css/cart.css">
+	<link rel="stylesheet" type="text/css" href="/static/home/public/css/cart-app.css">
+{% endblock %}
+
+
+{% block 'zhi_fu' %}
+<div class="navbar-left">
+    <ol class="breadcrumb">
+        <li>购物车</li>
+        <li>确认订单</li>
+        <li class="active">在线支付</li>
+        <li>完成 </li>
+    </ol>
+</div>
+{% endblock %}
+
+
+{% block 'content' %}
+<div class="mainbody cart" style="margin-top: 83px">
+    <!-- 订单信息信息 -->
+    <div class="container" style="margin-top: 25px">
+        <!-- 购物清单信息列表 -->
+        <div class="cart-merchant-list">
+            <div class="cart-merchant">
+                <center>
+                    <h1>订单支付</h1>
+                    <ul>
+                        <li>订单id : {{ order.id }}</li>
+                        <li>订单用户 : {{ order.addname }}</li>
+                        <li>订单时间 : {{ order.addtime }}</li>
+                        <li>订单总价 : {{ order.total_price }}</li>
+                        <li>订单数量 : {{ order.total_number }}</li>
+                    </ul>
+{#                    <button type="button" class="btn btn-default">个人订单</button>#}
+                    <a href="{% url 'home_pay' order.id %}" class="btn btn-danger btn-lg active" role="button">支付</a>
+                </center>
+            </div>
+        </div>
+        <!-- 购物清单信息列表 E-->
+    </div>
+{% endblock %}
+
+
+{% comment %}
+{% block 'js' %}
+{#    goods_num#}
+<!-- 返回顶部 E-->
+<script type="text/javascript">
+
+</script>
+{% endblock %}
+{% endcomment %}
+
+
+

@@ -215,9 +215,7 @@
                     csrfmiddlewaretoken:'{{ csrf_token }}'
                 },
                 success:function(data){
-                    alert('订单提交成功');
-                    location.href='{% url 'home_orderadd' %}'
-                    console.log(data)
+                    location.href='{% url 'home_orderadd' %}';
                 },
                 error:function(XMLHttpRequest, textStatus, errorThrown){
                     alert('订单提交失败, 请重新提交');

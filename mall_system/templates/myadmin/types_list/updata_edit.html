@@ -37,7 +37,7 @@
                     <div class="am-u-sm-9">
                         <select data-am-selected="{searchBox: 1}" style="display: none;">
                             <option disabled value="0"> 顶级分类 </option>
-                            {% load number_com %}
+                            {% load f_def %}
                             {% for i in all_data %}
                                 <option {% if i.id == up.pid  %} selected {% else %} disabled {% endif %} value="{{ i.id }}"> {% kong_upper i.path i.name %} </option>
                             {% endfor %}

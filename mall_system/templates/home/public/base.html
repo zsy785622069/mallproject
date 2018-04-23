@@ -30,7 +30,7 @@
     <script type="text/javascript" src="/static/home/public/js/topNav.js"></script>
 
 </head>
-<body>
+<body >
   <!-- 导航 -->
   {% block 'header' %}
   <div class="layout-header" id="scroll-wrap">
@@ -62,12 +62,14 @@
                               <a href="{% url 'home_register' %}" target="_blank" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_register">立即注册</a>
                           </li>
                       {% endif %}
-
                       <li class="layout-user-downmenu-item">
-                          <a href="#" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_myorder">我的订单</a>
+                          <span>{{ request.session.login_users.username }}</span>
                       </li>
                       <li class="layout-user-downmenu-item">
-                          <a href="#" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_mformy">M码通道</a>
+                          <a href="{% url 'home_myorder' %}" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_myorder">我的订单</a>
+                      </li>
+                      <li class="layout-user-downmenu-item">
+                          <a href="{% url 'home_users_index' %}" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_mformy">我的主页</a>
                       </li>
                       {% if request.session.login_status %}
                           <li class="layout-user-downmenu-item logout">
@@ -89,12 +91,12 @@
           {# 导航栏 商品标签 #}
             <ul class="nav navbar-nav navbar-right layout-header-nav clearfix">
                 <li class="layout-header-nav-item">
-                    <a href="./index.html" class="layout-header-nav-link">魅族商城 </a>
+                    <a href="{% url 'home_index' %}" class="layout-header-nav-link">魅族商城 </a>
                     <p class="line-top hidden-xs"></p>
                 </li>
                 {% for i in type_list %}
                 <li class="layout-header-nav-item">
-                    <a href="./list.html" class="layout-header-nav-link">{{ i.name }}</a>
+                    <a href="{% url 'home_list' i.id %}" class="layout-header-nav-link">{{ i.name }}</a>
                 </li>
                 {% endfor %}
 

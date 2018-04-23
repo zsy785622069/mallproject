@@ -51,8 +51,15 @@ class TypeAdd(View):
 # 3. 删除分类
 def type_del(request, del_id):
     del_data = Types.objects.filter(pid=del_id) # 检测 要删除的分类下面有没有子类
-    if len(del_data) != 0:
+    if len(del_data) != 0: # 检测 要删除的分类下面有没有子类, 有的不要删除
         return HttpResponse('<script>alert("删除失败, 您要删除分类有子类, 无法删除");location.href="/myadmin/type_index"</script>')
+
+    # 判断 如果, 分来下有商品页不能删除
+
+    del_type = Types.objects.get(id=del_id)
+    del_type_goods_num = del_type.goods_set.all().count()
+    if del_type_goods_num != 0:
+        return HttpResponse('<script>alert("删除失败, 您要删除的分类下有商品无法删除");location.href="/myadmin/type_index"</script>')
 
     dd = Types.objects.filter(id=del_id)
     if len(dd) == 0:

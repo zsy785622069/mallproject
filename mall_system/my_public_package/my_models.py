@@ -36,6 +36,7 @@ def filesload(request, image_dict_key, files_path):
         for chunk in myfile.chunks():
             f.write(chunk)
     filename2 = filename.split(".", maxsplit=1)[1]
+    print('filename2: ', filename2)
     return filename2
 
 

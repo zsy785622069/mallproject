@@ -54,4 +54,9 @@ urlpatterns = [
     #   3.4. 删除分类
     url(r'^goods_del/(?P<del_id>[0-9]+)$', goods_views.goods_del, name='myadmin_goods_del'),
 
+    # -----------------------------
+    # 4. 订单管理
+    #   4.1. 订单展示
+    
+
 ]

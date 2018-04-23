@@ -89,6 +89,8 @@
     </div>
     <!-- 订单信息信息 END -->
 
+    <form action="{% url 'home_ordercreate' %}" method="post">
+        {% csrf_token %}
     <!-- 商品购物车清单 -->
     <div class="container" style="margin-bottom: 20px">
         <table class="cart-header">
@@ -96,16 +98,26 @@
             <tbody>
             <tr>
                 <td style="text-align: center;font-size: 20px;">
-                    收货人:
-                    <span>xxx</span>
+                    <span style="font-size: 16px;color: red">收货人:</span>
+                    <input class="input_data" type="text" name="consignee">
                 </td>
+            </tr>
+            <tr>
                 <td style="text-align: center;font-size: 20px;">
-                    收获地址:
-                    <span>xxx</span>
+                    <span style="font-size: 16px;color: red">收获地址:</span>
+                    <input class="input_data" type="text" name="address">
                 </td>
+            </tr>
+            <tr>
                 <td style="text-align: center;font-size: 20px;">
-                    手机号:
-                    <span>xxx</span>
+                    <span style="font-size: 16px;color: red">手机号:</span>
+                    <input class="input_data" type="text" name="phone">
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center;font-size: 20px;">
+                    <span style="font-size: 16px;color: red">邮编</span>
+                    <input class="input_data" type="text" name="code">
                 </td>
             </tr>
             </tbody>
@@ -134,11 +146,12 @@
                     <span class="cart-footer-text">元， 合计(不含运费)：</span>
                     <span class="cart-footer-total" id="totalPrice">0.00</span>
                 </span>
-                <div class="mz-btn success" id="cartSubmit" onclick="goods_list()">去结算</div>
+                <button class="btn btn-primary btn-lg">去结算</button>
             </div>
         </div>
     </div><!-- 结算详情 E-->
 </div>
+</form>
 {% endblock %}
 
 
@@ -180,42 +193,43 @@
     };
 
     // 提交用户选中的商品的id
-    {#function goods_list() {#}
-    {#    var goods_attr = []#}
-    {#    $('.cart-product .checked').each(function(i,n){#}
-            {# console.log($(this).attr('gid')) // this 在这里是被循环的 n , #}
-            {# console.log($(n).attr('gid')) // 也可以使用 $(n) 的方式选择 每次循环的值, 效果与 $(this) 相同 #}
-    {#        var goods_id = $(n).attr('gid');#}
-    {#        if(goods_id){#}
-    {#            goods_attr[goods_attr.length] = goods_id#}
-    {#        }#}
-    {#    });#}
-    {#    if (goods_attr.length >0){#}
-    {#        $.ajax({ // 触发 ajax 提交订单#}
-    {#            url:'{% url 'home_orderadd' %}',#}
-    {#            type:'post',#}
-    {#            data:{#}
-    {#                goods_id_list: goods_attr.join(','),#}
-    {#                csrfmiddlewaretoken:'{{ csrf_token }}'#}
-    {#            },#}
-    {#            success:function(data){#}
-    {#                alert('订单提交成功');#}
-                    {#location.href='{% url 'home_orderadd' %}'#}
-    {#                console.log(data)#}
-    {#            },#}
-    {#            error:function(XMLHttpRequest, textStatus, errorThrown){#}
-    {#                alert('订单提交失败, 请重新提交');#}
-    {#                console.log(XMLHttpRequest);#}
-    {#                console.log(textStatus);#}
-    {#                console.log(errorThrown);#}
-    {#            }#}
-    {#        })#}
-    {#    }else {#}
-    {#        alert('请选择商品');#}
-    {#    }#}
-    {# } #}
+    {% comment %}
+    function goods_list() {
+        var goods_attr = []
+        $('.cart-product .checked,.input_data').each(function(i,n){
+             console.log($(this).attr('gid')); // this 在这里是被循环的 n ,
+             console.log($(n).attr('gid'));  // 也可以使用 $(n) 的方式选择 每次循环的值, 效果与 $(this) 相同
+            var goods_id = $(n).attr('gid');
+            if(goods_id){
+                goods_attr[goods_attr.length] = goods_id
+            }
+        });
+        if (goods_attr.length >0){
+            $.ajax({ // 触发 ajax 提交订单
+                url:'{% url 'home_orderadd' %}',
+                type:'post',
+                data:{
+                    goods_id_list: goods_attr.join(','),
+                    csrfmiddlewaretoken:'{{ csrf_token }}'
+                },
+                success:function(data){
+                    alert('订单提交成功');
+                    location.href='{% url 'home_orderadd' %}'
+                    console.log(data)
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    alert('订单提交失败, 请重新提交');
+                    console.log(XMLHttpRequest);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            })
+        }else {
+            alert('请选择商品');
+        }
+     }
 
-
+        {% endcomment %}
 
 </script>
 {% endblock %}
