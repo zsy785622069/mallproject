@@ -4,6 +4,9 @@ from django.views import View
 from my_public_package.my_models import ramdom_num
 from myadmin.models import Users
 
+from django.contrib import admin
+from django.contrib import auth
+
 class Login(View):
     def get(self, request):
         res_sess = request.session.get('login_error','')

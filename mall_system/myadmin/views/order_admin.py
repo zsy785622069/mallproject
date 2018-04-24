@@ -38,21 +38,23 @@ class OrderUpdate(View):
         return HttpResponse('<script>alert("修改成功");location.href="/myadmin/order_index"</script>')
 
 
-'''
-a = {
-    'address': '123123123', 
-    'addname': '12312123', 
-    'addcode': '1123', 
-    'order_id': '12', 
-    'status': '2', 
-    'addphone': '12312123'
-}
 
 
-def order_update(request,update_id):
-    order_up = Order.objects.get(id=update_id)
-    return render(request, 'myadmin/order_admin/order_update.html', {'order_up': order_up})
-'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
